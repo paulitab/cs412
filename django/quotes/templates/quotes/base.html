@@ -1,0 +1,28 @@
+<!-- quotes/templates/quotes/base.html -->
+<!-- a template with common HTML code that will be re-used by all of the other templates-->
+<!-- a base page that will provide a header and navigation for the page, as well as including any necessary style information. -->
+
+{% load static %}
+<html>
+    <head>
+        <title>Hello, world!</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+
+    <body>
+        <nav>
+            <ul>
+                <li><a href="{% url 'quote' %}">Quote</a></li>
+                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'show_all' %}">Show All</a></li>
+            </ul>
+        </nav>
+        
+        {% block content %}
+        <!-- fill in this section with specific page detail -->
+        {% endblock %}
+
+        <hr>
+        This page was generated at {{current_time}}.
+    </body>
+</html>

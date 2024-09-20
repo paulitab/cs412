@@ -1,0 +1,51 @@
+/*CSS code Paula Lopez Burgos*/
+
+div {
+    color: grey;
+    border: 1px solid white;
+    margin: 25px;
+    padding: 20px;
+}
+
+body {
+    color: grey;
+    background: rgb(171, 211, 220);
+}
+
+/*table*/
+table {
+    border: 0px solid;
+}
+
+td {
+    text-align: center;
+    border: 2px solid;
+}
+
+/*headers*/
+h1 {
+    color: grey;
+    text-align: center;
+    font-size: x-large;
+    font-style: italic;
+}
+
+h2 {
+    color: grey;
+    font-style: italic;
+}
+
+/*paragraph*/
+p {
+    color: #444444; 
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 1.2em; 
+    text-align: justify; 
+    margin-bottom: 15px;
+}
+
+/*link*/
+a {
+    color: #0088cc;
+    text-decoration: none;
+}

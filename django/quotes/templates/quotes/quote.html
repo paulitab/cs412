@@ -1,0 +1,15 @@
+<!-- quotes/templates/quotes/quote.html -->
+<!-- the main web page, that will show a single quote along with an image, each selected at random from a hard-coded list written in your Python code. -->
+
+
+{%extends 'quotes/base.html'%}
+
+{% block title %}Random Quote{% endblock %}
+
+{% block content %}
+<div>
+    <h2>Random Quote from Pablo Picasso</h2>
+    <p>"{{ quote }}"</p>
+    <img src="{{ image }}" alt="Random famous person">
+</div>
+{% endblock %}

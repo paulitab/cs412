@@ -1,0 +1,63 @@
+<html>
+    <head>
+    </head>
+    <body>
+        <!-- <h1>Google Search</h1>
+        
+        <form action="http://www.google.com/search">
+            <input type="text" name="q">
+            <input type="submit">
+        </form> -->
+
+        <h1>A custom form</h1>
+        <!-- we want to submit information to send an email -->
+        <form methos="POST"
+            action="https://cs-webapps.bu.edu/cgi-bin/util/formmailer.py">
+            <!-- POST does not put the parameter in the url because it has a different place holder for key value pairs, GET does not -->
+            <!-- action is where to submit the data -->
+            <!-- labelling                                   line breaks -->
+            Your name: <input type="text" name="your_name"><br><br>
+            <!-- Email Adress: <input type="text" name="mailto"><br> -->
+
+            <!-- radio buttons: mutualy exclusive choices -->
+            How did you get to BU today? <br>
+            <input type="radio" name="transportation" value="walk">Walk <br>
+            <input type="radio" name="transportation" value="bike">Bike <br>
+            <input type="radio" name="transportation" value="scooter">Scooter <br>
+            <input type="radio" name="transportation" value="bus">Bus <br>
+            <input type="radio" name="transportation" value="airplane">Airplane <br>
+            <input type="radio" name="transportation" value="train">Train <br><br>
+
+            <!-- check boxes: select-all choices -->
+            Which of these do you own? <br>
+            <input type="checkbox" name="own-bike" value="bike">Bike <br>
+            <input type="checkbox" name="own-scooter" value="scooter">Scooter <br> 
+            <input type="checkbox" name="own-bus" value="bus">Bus <br>
+            <input type="checkbox" name="own-airplane" value="airplane">Airplane <br>
+            <input type="checkbox" name="own-train" value="train">Train <br>
+            <input type="checkbox" name="own-car" value="train">Car <br><br>
+
+             <!-- big box -->
+             How do you feel about your commute? <br>
+            <textarea name="" id="" rows="5" cols="40"></textarea> <br><br>
+
+            <!-- drop-down list -->
+            Which state do you live in? <br>
+            <select name="state">
+                <option value="MA">Massachussets</option>
+                <option value="CA">California</option>
+                <option value="NY">New York</option>
+                <option value="TX">Texas</option>
+                <option value="FL">Florida</option>
+                <!-- they are not sorted -->
+                <!-- we can specify a selected one -->
+                <option value="WA" selected>Washington</option>
+             </select><br>
+
+            <input type="hidden" name="mailto" value="paulalb@bu.edu"><br>
+            <input type="submit"> <br>
+
+        </form>
+
+    </body>
+</html>

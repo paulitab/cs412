@@ -1,0 +1,23 @@
+<!-- quotes/templates/quotes/show_all.html -->
+<!-- show all of the quotes and images, in a neatly formatted page.  -->
+
+{%extends 'quotes/base.html'%}
+
+{% block title %}All Quotes{% endblock %}
+
+{% block content %}
+<h2>Pablo Picasso</h2>
+<ul>
+    <div>
+        {% for quote in quotes %}
+        <li>{{ quote }}</li>
+        {% endfor %}
+    </div>
+    <div>
+        {% for image in images %}
+        <img src="{{ image }}" alt="Image" width="150">
+        {% endfor %}
+    </div>
+</ul>
+
+{% endblock %}
