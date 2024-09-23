@@ -123,11 +123,13 @@ STATIC_URL = 'static/'
 
 import os # operating system library
 import django_heroku
+from whitenoise import WhiteNoise
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
