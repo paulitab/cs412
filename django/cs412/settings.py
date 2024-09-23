@@ -25,8 +25,7 @@ SECRET_KEY = 'django-insecure-%onq-g%77fk(i0*wf4_!fs(px7*%lxhc_^_srnwnt+w_bs4(8#
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*']
-
+ALLOWED_HOSTS = ['localhost', 'https://paulalb-quotes-app-3fd3cb5559dc.herokuapp.com/']
 
 # Application definition
 
@@ -123,11 +122,15 @@ USE_TZ = True
 STATIC_URL = 'static/'
 
 import os # operating system library
+import django_heroku
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
