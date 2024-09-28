@@ -1,0 +1,66 @@
+<!-- templates/restaurant/order.html -->
+{% extends 'restaurant/base.html' %}
+
+{% block title %}
+    Restaurant - Order
+{% endblock %}
+
+{% block content %}
+    <h2>Place Your Order</h2>
+
+    <form method="POST" action="{% url 'confirmation' %}">
+        {% csrf_token %}
+        
+        <ul><h3>Menu</h3></ul>
+        <div>
+            <input type="checkbox" name="items" value='Napolitan Pizza'> Napolitan Pizza ($14.99)
+            <label>Toppings:</label>
+            <select name="toppings">
+                <option value="Pepperoni">Pepperoni</option>
+                <option value="Mushrooms">Mushrooms</option>
+                <option value="Extra Cheese">Extra Cheese</option>
+                <option value="Peppers">Peppers</option>
+                <option value="Sausage">Sausage</option>
+                <option value="Olives">Olives</option>
+            </select>
+        </div>
+        <div>
+            <input type="checkbox" name="items" value="Lasagna"> Lasagna: ($13.99)
+        </div>
+        <div>
+            <input type="checkbox" name="items" value="Fettuccine Alfredo"> Fettuccine Alfredo ($14.99)
+        </div>
+        <div>
+            <input type="checkbox" name="items" value="Chicken Milanese"> Chicken Milanese ($15.99)
+        </div>
+
+        <ul><h3>Daily Special:</h3></ul>
+
+        <div>
+            <input type="checkbox" name="items" value="{{ daily_special }}"> {{ daily_special }} (${{ daily_special_price }})
+        </div>
+
+        <ul><h3>Special Instructions</h3></ul>
+        <div><textarea name="special_instructions" placeholder="Any special instructions..."></textarea></div>
+
+        <ul><h3>Customer Information</h3></ul>
+
+        <div>
+            <label for="name">Name:</label>
+            <input type="text" name="name" required>
+            </div>
+
+            <div>
+            <label for="phone">Phone:</label>
+            <input type="tel" name="phone" required>
+        </div>
+
+            <div>
+            <label for="email">Email:</label>
+            <input type="email" name="email" required>
+        </div>
+
+        <br>
+        <ul><button type="submit">Submit Order</button></ul>
+    </form>
+{% endblock %}

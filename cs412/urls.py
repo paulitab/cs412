@@ -20,8 +20,11 @@ from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
+    # path('', include("hw.urls")), # the main website url (going to hw right now)
     path('admin/', admin.site.urls),
     path('hw/', include("hw.urls")), # we create the URL hw/, and associate it with the URLs in another file
     path('quotes/', include("quotes.urls")), # assignment 3
+    path('formdata/', include("formdata.urls")), # class 9/24
+    path('restaurant/', include("restaurant.urls")), # assignment 4
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # creating a list anc concatenating one more thing

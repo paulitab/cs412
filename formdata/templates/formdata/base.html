@@ -4,7 +4,7 @@
 {% load static %}
 <html>
     <head>
-        <title>Hello, world!</title>
+        <title>Form Data</title>
         <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     </head>
 
@@ -15,8 +15,8 @@
                 <li><a href="/hw">Home</a></li>
                 <li><a href="/hw/about">About</a></li> 
                 -->
-                <li><a href="{% url 'home' %}">Home</a></li>
-                <li><a href="{% url 'about' %}">About</a></li>
+                <li><a href="{% url 'show_form' %}">Show Form</a></li>
+                <!-- <li><a href="{% url 'about' %}">About</a></li> -->
             </ul>
         </nav>
         
@@ -24,7 +24,5 @@
         <!-- fill in this section with specific page detail -->
         {% endblock %}
 
-        <hr>
-        This page was generated at {{current_time}}.
     </body>
 </html>
