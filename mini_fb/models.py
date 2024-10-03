@@ -4,11 +4,11 @@ from django.db import models
 
 # Create your models here.
 
-class Procfile(models.Model):
+class Profile(models.Model):
     '''
-    Procfile will model the data attributes of individual Facebook users.
+    Profile will model the data attributes of individual Facebook users.
     It need to include the following data attributes: 
-    first name, last name, city, email address, and a procfile image url.
+    first name, last name, city, email address, and a profile image url.
     '''
 
     # data attributes for this model:
@@ -17,3 +17,8 @@ class Procfile(models.Model):
     city = models.TextField(blank=False)
     email = models.EmailField(blank=False)
     image_url = models.URLField(blank=True)
+
+    def __str__(self):
+        '''Return a string representation of this object.'''
+
+        return f'{self.first_name} {self.last_name} from {self.city}'

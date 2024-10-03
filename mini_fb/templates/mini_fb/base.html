@@ -1,0 +1,35 @@
+<!-- mini_fb/templates/mini_fb/base.html -->
+<!-- a template with common HTML code that will be re-used by all of the other templates-->
+
+{% load static %}
+<html>
+    <head>
+        <title>Mini Facebook!</title>
+        <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    </head>
+
+    <!-- Header -->
+    <header>
+        <h1>CS Geniuses Mini Facebook</h1>
+    </header>
+
+    <body>
+        <nav>
+            <ul>
+            </ul>
+        </nav>
+        
+        {% block content %}
+        <!-- fill in this section with specific page detail -->
+        {% endblock %}
+
+        <!-- Footer -->
+        <footer>
+            <p>&copy; 2024 Paula Lopez Burgos Mini Facebook. All Rights Reserved.</p>
+        </footer>
+
+    </body>
+</html>
+
+
+
