@@ -26,5 +26,6 @@ urlpatterns = [
     path('quotes/', include("quotes.urls")), # assignment 3
     path('formdata/', include("formdata.urls")), # class 9/24
     path('restaurant/', include("restaurant.urls")), # assignment 4
+    path('blog/', include("blog.urls")), # class 10/1
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # creating a list anc concatenating one more thing
