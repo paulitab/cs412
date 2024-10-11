@@ -1,0 +1,58 @@
+<!-- mini_fb/templates/mini_fb/show_profile.html -->
+<!-- 
+This template will render a profile page for one user (i.e., a single Profile record).
+Display a larger-format image, and display all the data attributes stored in the Profile record. 
+Choose formatting that you find aesthetically pleasing. -->
+
+{% extends 'mini_fb/base.html' %}
+
+{% block title %}
+    Profile of {{ profile.first_name }} {{ profile.last_name }}
+{% endblock %}
+
+{% block content %}
+    <h2>Profile: {{ profile.first_name }} {{ profile.last_name }}</h2>
+
+    <img src="{{ profile.image_url }}" alt="{{ profile.first_name }}'s Profile Picture" width="200">
+
+    <table>
+        <tr>
+            <td><strong>First Name:</strong></td>
+            <td>{{ profile.first_name }}</td>
+        </tr>
+        <tr>
+            <td><strong>Last Name:</strong></td>
+            <td>{{ profile.last_name }}</td>
+        </tr>
+        <tr>
+            <td><strong>City:</strong></td>
+            <td>{{ profile.city }}</td>
+        </tr>
+        <tr>
+            <td><strong>Email:</strong></td>
+            <td>{{ profile.email }}</td>
+        </tr>
+
+        <!-- add the display of status messages. Use a loop to display all status messages. -->
+        <tr>
+            <td><strong>Status Messages:</strong></td>
+            <td>
+                {% if profile.get_status_messages %}
+                    <!-- call the get_stauts_messages method on the profile object -->
+                    {% for c in profile.get_status_messages %}
+                        <div>
+                            <p>
+                                {{ c.message }}
+                            </p>
+                            <strong> at {{c.timestamp}}</strong>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <p>No comments yet!</p>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
+{% endblock %}

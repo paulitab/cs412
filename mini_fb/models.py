@@ -22,3 +22,30 @@ class Profile(models.Model):
         '''Return a string representation of this object.'''
 
         return f'{self.first_name} {self.last_name} from {self.city}'
+    
+    # create an accessor method get_status_messages to obtain all status messages for this Profile.
+    def get_status_messages(self):
+        '''
+        Return a QuerySet of all StatusMessage objects for this Profile.
+        '''
+        # use the ORM to retrieve StatusMessage objects for which the FK (foreign key) is this Profile
+        status_messages = StatusMessage.objects.filter(profile=self)
+        return status_messages
+
+class StatusMessage(models.Model):
+    '''
+    Class will model the data attributes of Facebook status message.
+    It need to include the following data attributes:
+        timestamp (the time at which this status message was created/saved)
+        message (the text of the status message)
+        profile (the foreign key to indicate the relationship to the Profile of the creator of this message)
+    '''
+    timestamp = models.DateTimeField(auto_now=True)
+    message = models.TextField(blank=False)
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+
+    # be sure to include the __str__ method on this class to return a string representation of this object.
+    def __str__(self):
+        '''Return a string representation of this object.'''
+
+        return f'{self.message} by {self.profile.first_name} {self.profile.last_name} at {self.timestamp}'

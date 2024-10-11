@@ -4,7 +4,6 @@
 
 {% block content %}
 
-
 <h1>Show all articles</h1>
 
 <!-- display a context variable called articles --> 
@@ -15,7 +14,8 @@
     <!-- loop to display each Article -->
     {% for a in articles %}
      <div>
-            <h2>{{ a.title }}</h2>
+            <!-- a.pk is the primary key (number) on the article identified by a -->
+            <h2><a href="{% url 'article' a.pk %}">{{a.title}}</a></h2>
             <h3>by {{a.author}} at {{a.published}}</h3>
 
             <!-- new: display the image URL stored in database -->

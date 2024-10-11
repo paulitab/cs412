@@ -1,0 +1,49 @@
+<!-- blohg/templates/blog/show_all.html -->
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+
+
+<h1>Show all articles</h1>
+
+<!-- display a context variable called articles --> 
+<!-- {{ articles }} -->
+  
+<!-- <div> -->
+<main class="grid-container">
+
+     <div>
+            <h2>{{ article.title }}</h2>
+            <h3>by {{article.author}} at {{article.published}}</h3>
+
+            <!-- new: display the image URL stored in database -->
+            <img src="{{article.image_url}}" alt="{{article.image_url}}">
+
+            <p>
+                {{ article.text }}
+            </p>
+            
+     </div>
+
+     <!-- show the comments -->
+      <div>
+        {% if article.get_comments %}
+            <h2>Comments</h2>
+            <!-- call the get_comments method on the article object -->
+            <!-- {{article.get_comments}} -->
+            {% for c in article.get_comments %}
+                <div>
+                    <strong>by {{c.author}} at {{c.published}}</strong>
+                    <p>
+                        {{ c.text }}
+                    </p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No comments yet!</p>
+        {% endif %}
+      </div>
+
+</main> <!-- was </div> -->
+{% endblock %}
