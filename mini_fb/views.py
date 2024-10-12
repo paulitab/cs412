@@ -4,8 +4,11 @@ from django.shortcuts import render
 
 # Create your views here.
 # import generic views
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
+from django.urls import reverse
+
 from .models import *
+from .forms import *
 
 # class-based view
 class ShowAllProfilesView(ListView):
@@ -26,3 +29,57 @@ class ShowProfilePageView(DetailView):
     model = Profile
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profile'
+
+# Create a class-based view called CreateProfileView, which inherits from the generic CreateView class.
+# Be sure to specify the form this create view should use, i.e., the CreateProfileForm. 
+# Also, specify the name of the template to use to render this form, which must be called mini_fb/create_profile_form.html.
+class CreateProfileView(CreateView):
+    '''
+    A view to create a Profile
+    '''
+    form_class = CreateProfileForm
+    template_name = 'mini_fb/create_profile_form.html'
+
+    def get_success_url(self) -> str:
+        '''Return the URL to redirect to on success'''
+        return reverse('show_all_profiles') # lookup the URL called 'show_all_profiles' after the form has been succesful
+    
+class CreateStatusMessageView(CreateView):
+    '''
+    A view to create a StatusMessage
+    '''
+    form_class = CreateStatusMessageForm
+    template_name = 'mini_fb/create_status_form.html'
+
+    # first complication: Implementing get_context_data method
+    def get_context_data(self, **kwargs):
+            # The attribute self.kwargs is a dictionary of any URL parameters, and the value self.kwargs['pk'] is the primary key of the Profile corresponding to the URL pattern.
+        '''
+        Add the Profile to the context data so that the template can use it to display the Profile's name.
+        '''
+        # Within get_context_data method, create a context dictionary, add the Profile object (call the context variabale profile, for consistency with how things worked on other pages).
+        context = super().get_context_data(**kwargs)
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        context['profile'] = profile
+        return context
+    
+    # Second complication: Implementing the form_valid method
+    # To solve this problem, you will need to implement the special method form_valid on the CreateStatusMessageView class.
+    def form_valid(self, form):
+        '''
+        This method is called after the form is validated but before saving the data to the database.
+        '''
+        # look up the Profile object by its pk. You can find this pk in self.kwargs['pk'].
+        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        # attach this object to the profile attribute of the status message.
+        form.instance.profile = profile
+        # delegate work to the superclass version of this method.
+        return super().form_valid(form)
+
+    # Third complication: Implementing the get_success_url method
+    # To solve this problem, you will need to implement the special method get_success_url on the CreateStatusMessageView class.
+    def get_success_url(self) -> str:
+        '''Return the URL to redirect to on success'''
+        # return the URL corresponding to the profile page for whom the StatusMessage was added.
+        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+

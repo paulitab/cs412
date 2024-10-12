@@ -54,5 +54,8 @@ Choose formatting that you find aesthetically pleasing. -->
         </tr>
     </table>
 
+    <!-- add a link to create_status  -->
+    <a href="{% url 'create_status' profile.pk %}">Create a Status Message</a> <br>
+
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
 {% endblock %}

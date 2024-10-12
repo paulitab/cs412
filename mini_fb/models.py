@@ -1,6 +1,7 @@
 # mini_fb/models.py
 #Define the data objeects for our application
 from django.db import models
+from django.urls import reverse
 
 # Create your models here.
 
@@ -31,6 +32,13 @@ class Profile(models.Model):
         # use the ORM to retrieve StatusMessage objects for which the FK (foreign key) is this Profile
         status_messages = StatusMessage.objects.filter(profile=self)
         return status_messages
+
+# After storing this new record, the generic CreateView will attempt to display it by using the Profile model’s get_absolute_url method – which you must implement.
+# The get_absolute_url method must return a URL to show this one profile, i.e., the URL pattern will be similar to: 'http://127.0.0.1:8000/mini_fb/profile/1.
+# Use the reverse function (from (django.urls) and the named URL pattern to obtain a valid URL to show this profile.
+    def get_absolute_url(self): 
+        '''Return a URL to display this profile'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
 
 class StatusMessage(models.Model):
     '''
