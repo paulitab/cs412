@@ -30,6 +30,22 @@ class ShowProfilePageView(DetailView):
     template_name = 'mini_fb/show_profile.html'
     context_object_name = 'profile'
 
+    # Implement the get_context_data method
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Get the profile based on the primary key in the URL
+        profile = self.get_object()
+        
+        # Add the profile's status messages to the context
+        context['status_messages'] = StatusMessage.objects.filter(profile=profile)
+        
+        # Optionally, also pass images for each status message
+        # This assumes you have a get_images method on StatusMessage
+        for status in context['status_messages']:
+            status.images = status.get_images()
+
+        return context
+
 # Create a class-based view called CreateProfileView, which inherits from the generic CreateView class.
 # Be sure to specify the form this create view should use, i.e., the CreateProfileForm. 
 # Also, specify the name of the template to use to render this form, which must be called mini_fb/create_profile_form.html.
@@ -73,6 +89,21 @@ class CreateStatusMessageView(CreateView):
         profile = Profile.objects.get(pk=self.kwargs['pk'])
         # attach this object to the profile attribute of the status message.
         form.instance.profile = profile
+
+        # assignment 7 task 2:
+        # save the status message to database
+        sm = form.save()
+
+        # read the file from the form:
+        files = self.request.FILES.getlist('files')
+
+        # For each file, you will need to create an Image object; set the file into the Image‘s ImageField attribute, set the foreign key (the status message), and then call Image.save() to save the Image object to the database.
+        for f in files:
+            image = Image(image=f, status_message=sm)
+            image.save()
+        print(files)
+        print(image.image.url)
+
         # delegate work to the superclass version of this method.
         return super().form_valid(form)
 
@@ -82,4 +113,3 @@ class CreateStatusMessageView(CreateView):
         '''Return the URL to redirect to on success'''
         # return the URL corresponding to the profile page for whom the StatusMessage was added.
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
-

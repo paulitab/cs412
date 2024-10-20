@@ -30,3 +30,6 @@ urlpatterns = [
     path('mini_fb/', include("mini_fb.urls")), # assignment 5
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
     # creating a list anc concatenating one more thing
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

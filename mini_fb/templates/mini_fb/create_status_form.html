@@ -11,13 +11,15 @@
     
     <h2>Create a Status</h2>
     
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
             {{form.as_table}}
             <tr>
-                <td></td>
+                <td><label for="files">Upload Image(s):</label></td>
+                <td><input type="file" name = "files" multiple /></td>
                 <td><input type="submit" name="submit" value="Create Status"></td>
+            </tr>
         </table>
     </form>
     

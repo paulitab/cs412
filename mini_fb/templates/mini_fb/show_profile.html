@@ -37,20 +37,26 @@ Choose formatting that you find aesthetically pleasing. -->
         <tr>
             <td><strong>Status Messages:</strong></td>
             <td>
-                {% if profile.get_status_messages %}
-                    <!-- call the get_stauts_messages method on the profile object -->
-                    {% for c in profile.get_status_messages %}
+                {% if status_messages %}
+                    {% for status in status_messages %}
                         <div>
-                            <p>
-                                {{ c.message }}
-                            </p>
-                            <strong> at {{c.timestamp}}</strong>
+                            <p>{{ status.message }}</p>
+                            <strong>Posted on: {{ status.timestamp }}</strong>
+                            <!-- Display associated images if they exist -->
+                            {% if status.images %}
+                                <div>
+                                    {% for img in status.images %}
+                                        <img src="{{ img.image.url }}" alt="Image for {{ status.message }}" width="150">
+                                    {% endfor %}
+                                </div>
+                            {% endif %}
                         </div>
                     {% endfor %}
                 {% else %}
-                    <p>No comments yet!</p>
+                    <p>No status messages yet!</p>
                 {% endif %}
             </td>
+
         </tr>
     </table>
 
