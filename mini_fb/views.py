@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 # Create your views here.
 # import generic views
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.urls import reverse
 
 from .models import *
@@ -113,3 +113,19 @@ class CreateStatusMessageView(CreateView):
         '''Return the URL to redirect to on success'''
         # return the URL corresponding to the profile page for whom the StatusMessage was added.
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+    
+# assignment 5 task 3
+# Create a class-based view called UpdateProfileView, which inherits from the generic UpdateView class. 
+# Be sure to specify the form this create view should use, i.e., the UpdateProfileForm. 
+# Also, specify the name of the template to use to render this form, which must be called mini_fb/update_profile_form.html.
+class UpdateProfileView(UpdateView):
+    '''
+    A view to update a Profile
+    '''
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_fb/update_profile_form.html'
+
+    def get_success_url(self) -> str:
+        '''Return the URL to redirect to on success'''
+        return reverse('show_all_profiles') # lookup the URL called 'show_all_profiles' after the form has been succesful

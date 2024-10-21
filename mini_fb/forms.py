@@ -27,3 +27,17 @@ class CreateStatusMessageForm(forms.ModelForm):
         model = StatusMessage
         # specify the list of fields that this form should set (i.e., all of the data attributes of the StatusMessage class).
         fields = ['message']
+
+
+# assignment 5 task 3
+# Create a new form class UpdateProfileForm which inherits from forms.ModelForm. 
+class UpdateProfileForm(forms.ModelForm):
+    '''
+    A form to update a Profile in the database
+    '''
+    # Be sure to specify the inner-class Meta, which relates this form to the Profile model.
+    class Meta:
+        model = Profile
+        # specify the list of fields that this form should set 
+        # NOT the user’s first name or last name, which should not be changeable
+        fields = ['city', 'email', 'image_url']
