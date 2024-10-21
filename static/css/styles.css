@@ -220,10 +220,22 @@ input {
 }
 
 /* button */
-button {
+.button {
     background-color: #bbb7b7;
-    border-color: rgb(255, 255, 255);
-    /* border: none; */
+    color: 8b4513;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+}
+
+.button:hover {
+    background-color: #666666;
 }
 
 /* form */

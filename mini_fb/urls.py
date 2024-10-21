@@ -15,4 +15,8 @@ urlpatterns = [
     path(r'profile/<int:pk>/create_status', views.CreateStatusMessageView.as_view(), name='create_status'),
     # Create a URL mapping to route requests from the URL pattern 'profile/<int:pk>/update_profile', associate it with the UpdateProfileView, and name this URL update_profile.
     path(r'profile/<int:pk>/update', views.UpdateProfileView.as_view(), name='update_profile'),
+    # Create a URL mapping to route requests from the URL pattern 'profile/<int:pk>/delete_status/<int:status_pk>', associate it with the DeleteStatusMessageView, and name this URL delete_status.
+    path(r'profile/status/<int:pk>/delete', views.DeleteStatusMessageView.as_view(), name='delete_status'),
+    # Create a URL mapping to route requests from the URL patterns 'profile/<int:pk>/update_status/<int:status_pk>', associate it with the UpdateStatusMessageView, and name this URL update_status.
+    path(r'profile/status/<int:pk>/update', views.UpdateStatusMessageView.as_view(), name='update_status'),
 ]

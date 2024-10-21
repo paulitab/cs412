@@ -1,0 +1,21 @@
+<!-- mini_fb/templates/mini_fb/delete_status_form.html -->
+{% extends 'mini_fb/base.html' %}
+
+{% block title %}
+    Confirm Delete Status Message
+{% endblock %}
+
+<!-- One form to confirm the delete. It will send a POST back to the same URL at which you are trying to do the delete. -->
+{% block content %}
+    <h2>Are you sure you want to delete this status message?</h2>
+    <p>{{ status_message.message }} (Posted on: {{ status_message.timestamp }})</p>
+
+    <form method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Yes, Delete" class="button">
+    </form>
+
+    <!-- one form to cancel the delete. It will send a GET to URL to redisplay the profile page. -->
+    <a href="{% url 'show_profile' status_message.profile.pk %}" class="button">Cancel</a>
+
+{% endblock %}

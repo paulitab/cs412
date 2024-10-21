@@ -50,6 +50,14 @@ Choose formatting that you find aesthetically pleasing. -->
                                     {% endfor %}
                                 </div>
                             {% endif %}
+                            <li>
+                                <!-- delete --> 
+                                <a href="{% url 'delete_status' status.pk %}">Delete</a>
+                            </li>
+                            <li>
+                                <!-- update -->
+                                <a href="{% url 'update_status' status.pk %}">Update</a>
+                            </li>
                         </div>
                     {% endfor %}
                 {% else %}

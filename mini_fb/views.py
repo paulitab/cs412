@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 # Create your views here.
 # import generic views
-from django.views.generic import ListView, DetailView, CreateView, UpdateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse
 
 from .models import *
@@ -120,7 +120,7 @@ class CreateStatusMessageView(CreateView):
 # Also, specify the name of the template to use to render this form, which must be called mini_fb/update_profile_form.html.
 class UpdateProfileView(UpdateView):
     '''
-    A view to update a Profile
+    A view to update a Profile but not the first name or last name
     '''
     model = Profile
     form_class = UpdateProfileForm
@@ -129,3 +129,36 @@ class UpdateProfileView(UpdateView):
     def get_success_url(self) -> str:
         '''Return the URL to redirect to on success'''
         return reverse('show_all_profiles') # lookup the URL called 'show_all_profiles' after the form has been succesful
+
+# assignment 5 task 4
+# Create a class DeleteStatusMessageView, which inherits from the generic DeleteView class. 
+# Set the model, template_name and context_object_name attributes as you have done in the past when using other generic views.
+class DeleteStatusMessageView(DeleteView):
+    '''
+    A view to delete a StatusMessage, overriding some of the default behavior of the generic DeleteView.
+    '''
+    model = StatusMessage
+    template_name = 'mini_fb/delete_status_form.html'
+    context_object_name = 'status_message'
+
+    # Implement the get_success_url method
+    def get_success_url(self) -> str:
+        '''Return the URL to redirect to on success'''
+        # Override the get_success_url(self) method, so that when a StatusMessage is deleted, the user is redirected to the profile page for whom the status message was deleted.
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+    
+# assignment 5 task 4
+# create a new class UpdateStatusMessageView, which inherits from the generic UpdateView class.
+# Set the model, form_class, and template_name attributes as you have done in the past when using other generic views.
+class UpdateStatusMessageView(UpdateView):
+    model = StatusMessage
+    form_class = CreateStatusMessageForm
+    template_name = 'mini_fb/update_status_form.html'
+
+    def get_success_url(self):
+        '''
+        After updating, redirect to the profile page of the user who created the status message.
+        '''
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+
+
