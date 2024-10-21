@@ -98,11 +98,13 @@ class CreateStatusMessageView(CreateView):
         files = self.request.FILES.getlist('files')
 
         # For each file, you will need to create an Image object; set the file into the Image‘s ImageField attribute, set the foreign key (the status message), and then call Image.save() to save the Image object to the database.
-        for f in files:
-            image = Image(image=f, status_message=sm)
-            image.save()
-        print(files)
-        print(image.image.url)
+        if files:
+            for f in files:
+                image = Image(image=f, status_message=sm)
+                image.save()
+            print(f"Image uploaded: {image.image.url}")
+        else:
+            print("No images uploaded")
 
         # delegate work to the superclass version of this method.
         return super().form_valid(form)
@@ -128,7 +130,8 @@ class UpdateProfileView(UpdateView):
 
     def get_success_url(self) -> str:
         '''Return the URL to redirect to on success'''
-        return reverse('show_all_profiles') # lookup the URL called 'show_all_profiles' after the form has been succesful
+        # return the URL corresponding to the profile page for whom the Profile was updated.
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
 
 # assignment 5 task 4
 # Create a class DeleteStatusMessageView, which inherits from the generic DeleteView class. 
