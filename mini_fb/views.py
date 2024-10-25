@@ -116,7 +116,7 @@ class CreateStatusMessageView(CreateView):
         # return the URL corresponding to the profile page for whom the StatusMessage was added.
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
     
-# assignment 5 task 3
+# assignment 7 task 3
 # Create a class-based view called UpdateProfileView, which inherits from the generic UpdateView class. 
 # Be sure to specify the form this create view should use, i.e., the UpdateProfileForm. 
 # Also, specify the name of the template to use to render this form, which must be called mini_fb/update_profile_form.html.
@@ -133,7 +133,7 @@ class UpdateProfileView(UpdateView):
         # return the URL corresponding to the profile page for whom the Profile was updated.
         return reverse('show_profile', kwargs={'pk': self.object.pk})
 
-# assignment 5 task 4
+# assignment 7 task 4
 # Create a class DeleteStatusMessageView, which inherits from the generic DeleteView class. 
 # Set the model, template_name and context_object_name attributes as you have done in the past when using other generic views.
 class DeleteStatusMessageView(DeleteView):
@@ -150,7 +150,7 @@ class DeleteStatusMessageView(DeleteView):
         # Override the get_success_url(self) method, so that when a StatusMessage is deleted, the user is redirected to the profile page for whom the status message was deleted.
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
-# assignment 5 task 4
+# assignment 7 task 4
 # create a new class UpdateStatusMessageView, which inherits from the generic UpdateView class.
 # Set the model, form_class, and template_name attributes as you have done in the past when using other generic views.
 class UpdateStatusMessageView(UpdateView):

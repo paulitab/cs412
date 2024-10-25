@@ -29,7 +29,7 @@ class CreateStatusMessageForm(forms.ModelForm):
         fields = ['message']
 
 
-# assignment 5 task 3
+# assignment 7 task 3
 # Create a new form class UpdateProfileForm which inherits from forms.ModelForm. 
 class UpdateProfileForm(forms.ModelForm):
     '''
