@@ -48,11 +48,49 @@ class Profile(models.Model):
         '''
         # This method will need to use the Django ORM (i.e., Friend.objects) and its methods to filter/retrieve matching Friend records.
         # This method must return a list of the friends’ Profiles (not a QuerySet or list of Friends). Pay attention to the data types.
-        friends = []
-        friend_relations = Friend.objects.filter(profile1=self)
-        for friend_relation in friend_relations:
-            friends.append(friend_relation.profile2)
+        
+        # friends = []
+        # friend_relations = Friend.objects.filter(profile1=self)
+        # for friend_relation in friend_relations:
+        #     friends.append(friend_relation.profile2)
+        # return friends
+
+        friends_as_profile1 = Friend.objects.filter(profile1=self)
+        friends_as_profile2 = Friend.objects.filter(profile2=self)
+        
+        # Collect all friend Profiles
+        friends = [f.profile2 for f in friends_as_profile1] + [f.profile1 for f in friends_as_profile2]
+        
         return friends
+
+    # Create a method on the Profile class called add_friend(self, other). 
+    # This method takes a parameter other, which refers to another Profile instance, and the effect of the method should be add a Friend relation for the two Profiles: self and other.
+    def add_friend(self, other):
+        '''
+        Add a Friend relation for both this Profile and other Profile.
+        '''
+        # It is important to not add extra/duplicate Friends
+        # Additionally, we do not want to allow “self-friending”
+        # If no existing Friend relationship exists, create a new Friend instance and save it to the database.
+        if self != other:
+            if not Friend.objects.filter(profile1=self, profile2=other).exists() and not Friend.objects.filter(profile1=other, profile2=self).exists():
+                friend = Friend(profile1=self, profile2=other)
+                friend.save()
+        return None
+    
+    # Write a method get_friend_suggestions(self) which will return a list (or QuerySet) of possible friends for a Profile. 
+    def get_friend_suggestions(self):
+        '''
+        Return a list of Profile objects that are not already friends with this Profile.
+        '''
+        # Get all profiles that are already friends
+        friend_profiles = set(self.get_friends())
+        # Add self to the excluded profiles
+        excluded_profiles = friend_profiles.union({self})
+        # Get profiles that are not already friends or the profile itself
+        suggestions = Profile.objects.exclude(id__in=[p.id for p in excluded_profiles])
+        
+        return suggestions
 
 class StatusMessage(models.Model):
     '''

@@ -1,6 +1,6 @@
 # mini_fb/views.py
 # define the views for the blog app
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 
 # Create your views here.
 # import generic views
@@ -164,4 +164,39 @@ class UpdateStatusMessageView(UpdateView):
         '''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
 
+# Assignment 8
+# Create a class CreateFriendView, which inherits from the generic superclass django.views.generic.View. 
+class CreateFriendView(CreateView):
+    '''
+    A view to create a Friend relationship
+    '''
+    # form_class = CreateFriendForm
+    # template_name = 'mini_fb/add_friend_form.html'
+    
+    # Implement/override the dispatch method, in which we can read the URL parameters (from self.kwargs), use the object manager to find the requisite Profile objects, and then call the Profile‘s add_friend method (from step 2, above). Finally, we can redirect the user back to the profile page.
+    def dispatch(self, request, *args, **kwargs):
+        '''
+        Dispatch the request to the appropriate method based on the request method.
+        '''
+        # get the Profile objects
+        profile1 = Profile.objects.get(pk=self.kwargs['pk'])
+        profile2 = Profile.objects.get(pk=self.kwargs['other_pk'])
+        # call the add_friend method
+        profile1.add_friend(profile2)
+        # redirect the user back to the profile page
+        return redirect('show_profile', pk=self.kwargs['pk'])
+    
+# Create a class-based view called ShowFriendSuggestionsView, which inherits from the generic DetailView class.
+class ShowFriendSuggestionsView(DetailView):
+    '''
+    A view to show friend suggestions
+    '''
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        profile = self.get_object()
+        context['friend_suggestions'] = profile.get_friend_suggestions()
+        return context

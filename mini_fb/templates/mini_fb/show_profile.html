@@ -88,8 +88,11 @@ Choose formatting that you find aesthetically pleasing. -->
 
     <!-- add a link to create_status  -->
     <a href="{% url 'create_status' profile.pk %}">Create a Status Message</a> <br>
+
     <!-- add a link to update_profile -->
     <a href="{% url 'update_profile' profile.pk %}">Update Profile</a> <br>
 
-    <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a>
+    <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a> <br>
+
+    <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a> <br>
 {% endblock %}
