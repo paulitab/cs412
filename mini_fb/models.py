@@ -91,6 +91,21 @@ class Profile(models.Model):
         suggestions = Profile.objects.exclude(id__in=[p.id for p in excluded_profiles])
         
         return suggestions
+    
+    # Write a method get_news_feed(self) on the Profile object, which will return a list (or QuerySet) of all StatusMessages for the profile on which the method was called, as well as all of the friends of that profile.
+    def get_news_feed(self):
+        '''
+        Return a list of StatusMessage objects for this Profile and its friends.
+        '''
+        # Get all status messages for this Profile
+        news_feed = list(self.get_status_messages())
+        # Get all status messages for friends
+        for friend in self.get_friends():
+            news_feed.extend(list(friend.get_status_messages()))
+        # Sort the list of status messages by timestamp
+        news_feed.sort(key=lambda x: x.timestamp, reverse=True)
+        
+        return news_feed
 
 class StatusMessage(models.Model):
     '''
