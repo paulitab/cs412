@@ -39,6 +39,20 @@ class Profile(models.Model):
     def get_absolute_url(self): 
         '''Return a URL to display this profile'''
         return reverse('show_profile', kwargs={'pk': self.pk})
+    
+    # assignment 8
+    # Write a get_friends accessor method on the Profile class, which will return a list of friend’s profiles.
+    def get_friends(self):
+        '''
+        Return a list of Profile objects that are friends with this Profile.
+        '''
+        # This method will need to use the Django ORM (i.e., Friend.objects) and its methods to filter/retrieve matching Friend records.
+        # This method must return a list of the friends’ Profiles (not a QuerySet or list of Friends). Pay attention to the data types.
+        friends = []
+        friend_relations = Friend.objects.filter(profile1=self)
+        for friend_relation in friend_relations:
+            friends.append(friend_relation.profile2)
+        return friends
 
 class StatusMessage(models.Model):
     '''
@@ -86,3 +100,20 @@ class Image(models.Model):
         '''Return a string representation of this object.'''
 
         return f'{self.image} uploaded at {self.timestamp}'
+
+# Assignment 8
+# Create a new data model called Friend, which encapsulates the idea of an edge connecting two nodes within the social network
+class Friend(models.Model):
+    '''
+    Model for encapsulating the idea of an edge connecting two nodes within the social network.
+    A Friend relation will associate 2 Profiles, and also store a timestamp of the friendship creation (i.e., “anniversary”) date. Use the attribute names profile1, profile2, and timestamp.
+    '''
+    profile1 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile1')
+    profile2 = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile2')
+    timestamp = models.DateTimeField(auto_now=True)
+
+    # write a __str__ method so that you can view this relationship as a string representation
+    def __str__(self):
+        '''Return a string representation of this friendship object.'''
+
+        return f'{self.profile1.first_name} {self.profile1.last_name} and {self.profile2.first_name} {self.profile2.last_name} became friends on {self.timestamp}'

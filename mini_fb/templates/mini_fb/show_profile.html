@@ -65,6 +65,24 @@ Choose formatting that you find aesthetically pleasing. -->
                 {% endif %}
             </td>
 
+            <!-- display the friends -->
+            <!-- Modify the show_profile.html template to include displaying the friends for that Profile, with links to the friend’s own profile pages. -->
+            <tr>
+                <td><strong>Friends:</strong></td>
+                <td>
+                    {% if profile.get_friends %}
+                        {% for friend in profile.get_friends %}
+                            <li>
+                                <a href="{% url 'show_profile' friend.pk %}">
+                                    {{ friend.first_name }} {{ friend.last_name }}
+                                </a>
+                            </li>
+                        {% endfor %}
+                    {% else %}
+                        <p>This profile has no friends yet.</p>
+                    {% endif %}
+                </td>
+
         </tr>
     </table>
 
