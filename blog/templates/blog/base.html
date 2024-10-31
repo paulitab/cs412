@@ -12,6 +12,12 @@
         <nav>
             <ul><a href="{% url 'show_all' %}">Show All</a></ul>
             <ul><a href="{% url 'random' %}">Random</a></ul>
+            <!-- <ul>Logged in user: {{ request.user }}</ul> -->
+            {% if request.user.is_authenticated %}
+            Logged in user: {{ request.user }}.
+            {% else %}
+            Not logged in.
+            {% endif %}
         </nav>
         
         {% block content %}

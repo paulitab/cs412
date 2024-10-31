@@ -1,31 +1,70 @@
-<!-- blohg/templates/blog/show_all.html -->
+<!-- blog/templates/blog/base.html -->
+{% load static %}
+<html>
+    <head>
+        <title>Blog</title>
+        <link rel="stylesheet" href="{% static 'styles-blog.css' %}">
+    </head>
+    <body>
+        <header>
+            <h1>Blog</h1>
+            <nav>
+                <ul>
+                    <!-- URLs that do not depend on authentication status -->
+                    <li><a href="{% url 'show_all' %}">Show All</a></li>
+                    <li><a href="{% url 'random' %}">Random</a></li>
+                    <!-- URLs that depend on authentication status -->
+                    {% if request.user.is_authenticated %}
+                    <li><a href="{% url 'create_article' %}">Create Article</a></li>
+                    <li><a href="{% url 'logout' %}">Log out</a></li>
+                    {% else %}
+                    <li><a href="{% url 'login' %}">Log in</a></li>
+                    {% endif %}
+                </ul>
+                
+                <!-- show who's logged in -->
+                {% if request.user.is_authenticated %}
+                Logged in user: {{ request.user }}.
+                {% else %}
+                Not logged in.
+                {% endif %}
+            </nav>
+        </header>
+    
+    {% block content %}
+    {% endblock %}    
+  
+    </body>
+</html>
 
-{% extends 'blog/base.html' %}
+<!--  blohg/templates/blog/show_all.html  -->
+
+<!-- {% extends 'blog/base.html' %}
 
 {% block content %}
 
-<h1>Show all articles</h1>
+<h1>Show all articles</h1> -->
 
 <!-- display a context variable called articles --> 
 <!-- {{ articles }} -->
   
 <!-- <div> -->
-<main class="grid-container">
+<!-- <main class="grid-container"> -->
     <!-- loop to display each Article -->
-    {% for a in articles %}
-     <div>
+    <!-- {% for a in articles %}
+     <div> -->
             <!-- a.pk is the primary key (number) on the article identified by a -->
-            <h2><a href="{% url 'article' a.pk %}">{{a.title}}</a></h2>
-            <h3>by {{a.author}} at {{a.published}}</h3>
+            <!-- <h2><a href="{% url 'article' a.pk %}">{{a.title}}</a></h2>
+            <h3>by {{a.author}} at {{a.published}}</h3> -->
 
             <!-- new: display the image URL stored in database -->
-            <img src="{{a.image_url}}" alt="{{a.image_url}}">
+            <!-- <img src="{{a.image_url}}" alt="{{a.image_url}}">
 
             <p>
                 {{ a.text }}
             </p>
             
      </div>
-    {% endfor %}
-</main> <!-- was </div> -->
-{% endblock %}
+    {% endfor %} -->
+<!-- </main>  -->
+<!-- {% endblock %}  -->

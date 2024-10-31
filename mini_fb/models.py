@@ -2,6 +2,7 @@
 #Define the data objeects for our application
 from django.db import models
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 # Create your models here.
 
@@ -18,6 +19,9 @@ class Profile(models.Model):
     city = models.TextField(blank=False)
     email = models.EmailField(blank=False)
     image_url = models.URLField(blank=True)
+    # assignment 9 
+    # add a ForeignKey to the standard Django User model that will associate each Profile with an User for authentication and identification purposes.
+    user = models.ForeignKey(User, on_delete=models.CASCADE) ## NEW
 
     def __str__(self):
         '''Return a string representation of this object.'''

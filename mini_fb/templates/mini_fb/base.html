@@ -19,6 +19,13 @@
                 <li><a href="{% url 'show_all_profiles' %}">Home</a></li>
                 <li><a href="{% url 'show_all_profiles' %}">Show All Profiles</a></li>
                 <li><a href="{% url 'create_profile' %}">Create New Profile</a></li>
+                <!-- Revise the base.html template to account for having an authenticated user. show which user is logged in -->
+                <li2>{% if request.user.is_authenticated %}
+                    Logged in user: {{ request.user }}
+                {% else %}
+                    Not logged in.
+                {% endif %}
+                </li2>
             </ul>
         </nav>
         

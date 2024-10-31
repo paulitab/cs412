@@ -50,14 +50,18 @@ Choose formatting that you find aesthetically pleasing. -->
                                     {% endfor %}
                                 </div>
                             {% endif %}
-                            <li>
-                                <!-- delete --> 
-                                <a href="{% url 'delete_status' status.pk %}">Delete</a>
-                            </li>
-                            <li>
-                                <!-- update -->
-                                <a href="{% url 'update_status' status.pk %}">Update</a>
-                            </li>
+                            {% if request.user.is_authenticated %}
+                                {%if request.user == profile.user%}
+                                    <li>
+                                        <!-- delete --> 
+                                        <a href="{% url 'delete_status' status.pk %}">Delete</a>
+                                    </li>
+                                    <li>
+                                        <!-- update -->
+                                        <a href="{% url 'update_status' status.pk %}">Update</a>
+                                    </li>
+                                {% endif %}
+                            {% endif %}
                         </div>
                     {% endfor %}
                 {% else %}
@@ -86,15 +90,25 @@ Choose formatting that you find aesthetically pleasing. -->
         </tr>
     </table>
 
-    <!-- add a link to create_status  -->
-    <a href="{% url 'create_status' profile.pk %}">Create a Status Message</a> <br>
 
-    <!-- add a link to update_profile -->
-    <a href="{% url 'update_profile' profile.pk %}">Update Profile</a> <br>
 
     <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a> <br>
 
-    <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a> <br>
+    <!-- links that require user to be logged in: -->
+     {%if request.user.is_authenticated %}
 
-    <a href="{% url 'news_feed' profile.pk %}">News Feed</a> <br>
+        <!-- links that are only allowed for user associated with this profile -->
+        {%if request.user == profile.user %}
+            <!-- add a link to update_profile -->
+            <a href="{% url 'update_profile' profile.pk %}">Update Profile</a> <br>
+
+            <!-- add a link to create_status  -->
+            <a href="{% url 'create_status' profile.pk %}">Create a Status Message</a> <br>
+
+            <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a> <br>
+
+            <a href="{% url 'news_feed' profile.pk %}">News Feed</a> <br>
+        {% endif %}
+
+    {% endif %}
 {% endblock %}

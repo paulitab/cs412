@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 # import generic views
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse
+from django.contrib.auth.mixins import LoginRequiredMixin ## assignment 9
 
 from .models import *
 from .forms import *
@@ -60,7 +61,7 @@ class CreateProfileView(CreateView):
         '''Return the URL to redirect to on success'''
         return reverse('show_all_profiles') # lookup the URL called 'show_all_profiles' after the form has been succesful
     
-class CreateStatusMessageView(CreateView):
+class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''
     A view to create a StatusMessage
     '''
@@ -116,11 +117,16 @@ class CreateStatusMessageView(CreateView):
         # return the URL corresponding to the profile page for whom the StatusMessage was added.
         return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
     
+    # assignment 9: review the create update delete so only logged in users can do them
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')
+    
 # assignment 7 task 3
 # Create a class-based view called UpdateProfileView, which inherits from the generic UpdateView class. 
 # Be sure to specify the form this create view should use, i.e., the UpdateProfileForm. 
 # Also, specify the name of the template to use to render this form, which must be called mini_fb/update_profile_form.html.
-class UpdateProfileView(UpdateView):
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
     '''
     A view to update a Profile but not the first name or last name
     '''
@@ -132,11 +138,16 @@ class UpdateProfileView(UpdateView):
         '''Return the URL to redirect to on success'''
         # return the URL corresponding to the profile page for whom the Profile was updated.
         return reverse('show_profile', kwargs={'pk': self.object.pk})
+    
+    # assignment 9: review the create update delete so only logged in users can do them
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')
 
 # assignment 7 task 4
 # Create a class DeleteStatusMessageView, which inherits from the generic DeleteView class. 
 # Set the model, template_name and context_object_name attributes as you have done in the past when using other generic views.
-class DeleteStatusMessageView(DeleteView):
+class DeleteStatusMessageView(LoginRequiredMixin, DeleteView):
     '''
     A view to delete a StatusMessage, overriding some of the default behavior of the generic DeleteView.
     '''
@@ -150,10 +161,15 @@ class DeleteStatusMessageView(DeleteView):
         # Override the get_success_url(self) method, so that when a StatusMessage is deleted, the user is redirected to the profile page for whom the status message was deleted.
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
+    # assignment 9: review the create update delete so only logged in users can do them
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')
+    
 # assignment 7 task 4
 # create a new class UpdateStatusMessageView, which inherits from the generic UpdateView class.
 # Set the model, form_class, and template_name attributes as you have done in the past when using other generic views.
-class UpdateStatusMessageView(UpdateView):
+class UpdateStatusMessageView(LoginRequiredMixin, UpdateView):
     model = StatusMessage
     form_class = CreateStatusMessageForm
     template_name = 'mini_fb/update_status_form.html'
@@ -163,10 +179,15 @@ class UpdateStatusMessageView(UpdateView):
         After updating, redirect to the profile page of the user who created the status message.
         '''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+    
+    # assignment 9: review the create update delete so only logged in users can do them
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')
 
 # Assignment 8
 # Create a class CreateFriendView, which inherits from the generic superclass django.views.generic.View. 
-class CreateFriendView(CreateView):
+class CreateFriendView(LoginRequiredMixin, CreateView):
     '''
     A view to create a Friend relationship
     '''
@@ -186,8 +207,13 @@ class CreateFriendView(CreateView):
         # redirect the user back to the profile page
         return redirect('show_profile', pk=self.kwargs['pk'])
     
+    # assignment 9: review the create update delete so only logged in users can do them
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')
+    
 # Create a class-based view called ShowFriendSuggestionsView, which inherits from the generic DetailView class.
-class ShowFriendSuggestionsView(DetailView):
+class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     '''
     A view to show friend suggestions
     '''
@@ -200,9 +226,14 @@ class ShowFriendSuggestionsView(DetailView):
         profile = self.get_object()
         context['friend_suggestions'] = profile.get_friend_suggestions()
         return context
+    
+    # assignment 9: review the create update delete so only logged in users can do them
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')
 
 # Create a new view class ShowNewsFeedView which inherits from DetailView, and associate it with the news_feed.html template.
-class ShowNewsFeedView(DetailView):
+class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     '''
     A view to show a news feed
     '''
@@ -215,3 +246,8 @@ class ShowNewsFeedView(DetailView):
         profile = self.get_object()
         context['news_feed'] = profile.get_news_feed()
         return context
+    
+    # assignment 9: review the create update delete so only logged in users can do them
+    def get_login_url(self) -> str:
+        '''return the URL required for login'''
+        return reverse('login')

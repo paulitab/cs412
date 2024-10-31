@@ -1,5 +1,7 @@
 # blog/views.py
 # define the views for the blog app
+from django.http import HttpRequest
+from django.http.response import HttpResponse as HttpResponse
 from django.shortcuts import render
 
 # Create your views here.
@@ -18,6 +20,13 @@ class ShowAllView(ListView):
     model = Article # the model to display
     template_name = 'blog/show_all.html'
     context_object_name = 'articles' # the variable name for the list of objects
+
+    def dispatch(self, *args, **kwargs):
+        '''implement this method to add some debug tracing'''
+        print(f"Logged in user: request.user={request.user}")
+        print(f"Logged in user: request.user.is_authenticated={request.user.is_authenticated}")
+        # let the sueprclass version of this method do its work:
+        return super().dispatch(*args, **kwargs)
 
 class RandomArticleView(DetailView):
     '''Display one Article selected at Random'''
