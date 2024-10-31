@@ -59,8 +59,9 @@ class CreateProfileView(CreateView):
 
     def get_success_url(self) -> str:
         '''Return the URL to redirect to on success'''
-        return reverse('show_all_profiles') # lookup the URL called 'show_all_profiles' after the form has been succesful
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk}) # lookup the URL called 'show_all_profiles' after the form has been succesful
     
+
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''
     A view to create a StatusMessage
