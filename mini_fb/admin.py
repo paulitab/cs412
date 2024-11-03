@@ -1,4 +1,4 @@
-# blog/models.py
+# mini_fb/models.py
 # tell the admin we want to administer these models
 from django.contrib import admin
 

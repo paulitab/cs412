@@ -8,6 +8,9 @@ from django.shortcuts import render
 # import generic views
 from django.views.generic import ListView, DetailView, CreateView
 from django.urls import reverse
+from django.contrib.auth.forms import UserCreationForm #31/10
+from django.contrib.auth.models import User #31/10
+from django.contrib.auth import login #31/10
 
 from blog.forms import *
 from .models import *
@@ -83,3 +86,27 @@ class CreateCommentView(CreateView):
 
         # delegate work to superclass version of this method
         return super().form_valid(form)
+    
+class RegistrationView(CreateView):
+    '''
+    A view to register a new user
+    '''
+    form_class = UserCreationForm
+    template_name = 'blog/register.html'
+
+    def get_success_url(self) -> str:
+        '''Return the URL to redirect to on success'''
+        # return 'show_all' # a valid URL
+        return reverse('show_all') # lookup the URL called 'show_all'
+
+    def form_valid(self, form):
+        '''This method is called after the form is validates before saving data to the database'''
+
+        # delegate work to superclass version of this method
+        response = super().form_valid(form)
+
+        # log the user in
+        login(self.request, self.object)
+
+        # return the response
+        return response

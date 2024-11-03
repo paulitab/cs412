@@ -1,12 +1,13 @@
 # mini_fb/views.py
-# define the views for the blog app
+# define the views for the mini_fb app
 from django.shortcuts import redirect, render
 
 # Create your views here.
 # import generic views
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from django.urls import reverse
-from django.contrib.auth.mixins import LoginRequiredMixin ## assignment 9
+from django.contrib.auth.mixins import LoginRequiredMixin # assignment 9
+from django.shortcuts import get_object_or_404
 
 from .models import *
 from .forms import *
@@ -18,9 +19,17 @@ class ShowAllProfilesView(ListView):
     Use this view to obtain data for all Profile records, 
     and to deleguate work to a template called show_all_profiles.html to display all Profiles.
     '''
+    # def get_object(self):
+    #     '''Locate and return the Profile associated with this User'''
+    #     return get_object_or_404(Profile, user=self.request.user)
+    
     model = Profile # the model to display
     template_name = 'mini_fb/show_all_profiles.html'
     context_object_name = 'profiles' # the variable name for the list of objects
+
+    # def get_object(self):
+    #     '''Locate and return the Profile associated with this User'''
+    #     return get_object_or_404(Profile, user=self.request.user)
 
 class ShowProfilePageView(DetailView):
     '''
@@ -46,6 +55,10 @@ class ShowProfilePageView(DetailView):
             status.images = status.get_images()
 
         return context
+    
+    def get_object(self):
+        '''Locate and return the Profile associated with this User'''
+        return get_object_or_404(Profile, user=self.request.user)
 
 # Create a class-based view called CreateProfileView, which inherits from the generic CreateView class.
 # Be sure to specify the form this create view should use, i.e., the CreateProfileForm. 
@@ -61,7 +74,6 @@ class CreateProfileView(CreateView):
         '''Return the URL to redirect to on success'''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk}) # lookup the URL called 'show_all_profiles' after the form has been succesful
     
-
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''
     A view to create a StatusMessage
@@ -144,6 +156,10 @@ class UpdateProfileView(LoginRequiredMixin, UpdateView):
     def get_login_url(self) -> str:
         '''return the URL required for login'''
         return reverse('login')
+    
+    def get_object(self):
+        '''Locate and return the Profile associated with this User'''
+        return get_object_or_404(Profile, user=self.request.user)
 
 # assignment 7 task 4
 # Create a class DeleteStatusMessageView, which inherits from the generic DeleteView class. 
@@ -201,12 +217,16 @@ class CreateFriendView(LoginRequiredMixin, CreateView):
         Dispatch the request to the appropriate method based on the request method.
         '''
         # get the Profile objects
-        profile1 = Profile.objects.get(pk=self.kwargs['pk'])
-        profile2 = Profile.objects.get(pk=self.kwargs['other_pk'])
+        # profile1 = Profile.objects.get(pk=self.kwargs['pk'])
+        # profile2 = Profile.objects.get(pk=self.kwargs['other_pk'])
+        # Get the Profile of the logged-in user
+        profile1 = get_object_or_404(Profile, user=request.user)
+        # Get the Profile of the other user using the 'other_pk' from the URL
+        profile2 = get_object_or_404(Profile, pk=self.kwargs['other_pk'])
         # call the add_friend method
         profile1.add_friend(profile2)
         # redirect the user back to the profile page
-        return redirect('show_profile', pk=self.kwargs['pk'])
+        return redirect('show_profile', pk=profile1.pk)
     
     # assignment 9: review the create update delete so only logged in users can do them
     def get_login_url(self) -> str:
@@ -232,6 +252,10 @@ class ShowFriendSuggestionsView(LoginRequiredMixin, DetailView):
     def get_login_url(self) -> str:
         '''return the URL required for login'''
         return reverse('login')
+    
+    def get_object(self):
+        '''Locate and return the Profile associated with this User'''
+        return get_object_or_404(Profile, user=self.request.user)
 
 # Create a new view class ShowNewsFeedView which inherits from DetailView, and associate it with the news_feed.html template.
 class ShowNewsFeedView(LoginRequiredMixin, DetailView):
@@ -252,3 +276,7 @@ class ShowNewsFeedView(LoginRequiredMixin, DetailView):
     def get_login_url(self) -> str:
         '''return the URL required for login'''
         return reverse('login')
+    
+    def get_object(self):
+        '''Locate and return the Profile associated with this User'''
+        return get_object_or_404(Profile, user=self.request.user)

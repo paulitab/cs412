@@ -76,11 +76,18 @@ Choose formatting that you find aesthetically pleasing. -->
                 <td>
                     {% if profile.get_friends %}
                         {% for friend in profile.get_friends %}
+                        <!-- if it the friend is also user profile show link else just the name -->
+                            {% if friend.user == request.user %}
+                                <li>
+                                    <a href="{% url 'show_profile' friend.pk %}">
+                                        {{ friend.first_name }} {{ friend.last_name }}
+                                    </a>
+                                </li>
+                            {% else %}
                             <li>
-                                <a href="{% url 'show_profile' friend.pk %}">
-                                    {{ friend.first_name }} {{ friend.last_name }}
-                                </a>
+                                {{ friend.first_name }} {{ friend.last_name }}
                             </li>
+                            {% endif %}
                         {% endfor %}
                     {% else %}
                         <p>This profile has no friends yet.</p>
@@ -100,14 +107,14 @@ Choose formatting that you find aesthetically pleasing. -->
         <!-- links that are only allowed for user associated with this profile -->
         {%if request.user == profile.user %}
             <!-- add a link to update_profile -->
-            <a href="{% url 'update_profile' profile.pk %}">Update Profile</a> <br>
+            <a href="{% url 'update_profile' %}">Update Profile</a> <br>
 
             <!-- add a link to create_status  -->
-            <a href="{% url 'create_status' profile.pk %}">Create a Status Message</a> <br>
+            <a href="{% url 'create_status' %}">Create a Status Message</a> <br>
 
-            <a href="{% url 'friend_suggestions' profile.pk %}">Friend Suggestions</a> <br>
+            <a href="{% url 'friend_suggestions' %}">Friend Suggestions</a> <br>
 
-            <a href="{% url 'news_feed' profile.pk %}">News Feed</a> <br>
+            <a href="{% url 'news_feed' %}">News Feed</a> <br>
         {% endif %}
 
     {% endif %}
