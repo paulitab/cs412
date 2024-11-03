@@ -1,5 +1,6 @@
 # mini_fb/views.py
 # define the views for the mini_fb app
+from typing import Any
 from django.shortcuts import redirect, render
 
 # Create your views here.
@@ -8,6 +9,7 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.urls import reverse
 from django.contrib.auth.mixins import LoginRequiredMixin # assignment 9
 from django.shortcuts import get_object_or_404
+from django.contrib.auth.forms import UserCreationForm # assignment 9
 
 from .models import *
 from .forms import *
@@ -73,6 +75,26 @@ class CreateProfileView(CreateView):
     def get_success_url(self) -> str:
         '''Return the URL to redirect to on success'''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk}) # lookup the URL called 'show_all_profiles' after the form has been succesful
+    
+    # assignment 9
+    # create an instance of the UserCreationForm and store this instance in the context data. 
+    def get_context_data(self, **kwargs: Any) -> Any:
+        '''Add the UserCreationForm to the context data to pass it to the template'''
+        context = super().get_context_data(**kwargs)
+        context['user_form'] = UserCreationForm()
+        return context
+    
+    # assignment 9 
+    def form_valid(self, form):
+        '''This method is called after the form is validated but before saving the data to the database.'''
+        # Reconstruct the UserCreationForm instance from the self.request.POST data
+        user_form = UserCreationForm(self.request.POST)
+        # Call the save() method on the UserCreationForm instance
+        user = user_form.save()
+        # Attach the user to the Profile instance object
+        form.instance.user = user
+        # Delegate the rest to the super class’ form_valid method
+        return super().form_valid(form)
     
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''
