@@ -21,7 +21,8 @@ class Profile(models.Model):
     image_url = models.URLField(blank=True)
     # assignment 9 
     # add a ForeignKey to the standard Django User model that will associate each Profile with an User for authentication and identification purposes.
-    user = models.ForeignKey(User, on_delete=models.CASCADE) ## NEW
+    # user = models.ForeignKey(User, on_delete=models.CASCADE) ## NEW
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
     def __str__(self):
         '''Return a string representation of this object.'''

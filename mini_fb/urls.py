@@ -13,7 +13,7 @@ urlpatterns = [
     path(r'profile/<int:pk>', views.ShowProfilePageView.as_view(), name='show_profile'),
     path(r'create_profile', views.CreateProfileView.as_view(), name='create_profile'), # Create a URL mapping to route requests from the URL pattern 'create_profile' to the CreateProfileView view.
     # Create a URL mapping to route requests from the URL pattern 'profile/<int:pk>/create_status', associate it with the CreateStatusMessageView, and name this URL create_status.
-    path(r'profile/create_status', views.CreateStatusMessageView.as_view(), name='create_status'),
+    path(r'profile/status/create_status', views.CreateStatusMessageView.as_view(), name='create_status'),
     # Create a URL mapping to route requests from the URL pattern 'profile/<int:pk>/update_profile', associate it with the UpdateProfileView, and name this URL update_profile.
     path(r'profile/update', views.UpdateProfileView.as_view(), name='update_profile'),
     # Create a URL mapping to route requests from the URL pattern 'profile/<int:pk>/delete_status/<int:status_pk>', associate it with the DeleteStatusMessageView, and name this URL delete_status.
@@ -27,8 +27,7 @@ urlpatterns = [
     # Create a new URL pattern: 'profile/<int:pk>/news_feed' and associate it with the ShowNewsFeedView.
     path(r'profile/news_feed', views.ShowNewsFeedView.as_view(), name='news_feed'),
     # assignment 9
-    # Add two new URLs to your application: 'login/', which will be implemented by the auth_views.LoginView 
-    # and 'logout/', which will be implemented by the auth_views.LogoutView.
+    # Add two new URLs to your application: 'login/' and 'logout/'.
     path(r'login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'),
-    path(r'logout/', auth_views.LogoutView.as_view(template_name='mini_fb/logout.html', next_page='show_all_profiles'), name="logged_out"), ## NEW,
+    path(r'logout/', auth_views.LogoutView.as_view(template_name='mini_fb/logout.html', next_page='show_all_profiles'), name="logout"), ## NEW,
 ]

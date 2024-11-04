@@ -60,7 +60,7 @@ class ShowProfilePageView(DetailView):
     
     def get_object(self):
         '''Locate and return the Profile associated with this User'''
-        return get_object_or_404(Profile, user=self.request.user)
+        return get_object_or_404(Profile, pk=self.kwargs['pk'])
 
 # Create a class-based view called CreateProfileView, which inherits from the generic CreateView class.
 # Be sure to specify the form this create view should use, i.e., the CreateProfileForm. 
@@ -74,14 +74,15 @@ class CreateProfileView(CreateView):
 
     def get_success_url(self) -> str:
         '''Return the URL to redirect to on success'''
-        return reverse('show_profile', kwargs={'pk': self.object.profile.pk}) # lookup the URL called 'show_all_profiles' after the form has been succesful
+        return reverse('show_profile', kwargs={'pk': self.object.pk}) 
     
     # assignment 9
     # create an instance of the UserCreationForm and store this instance in the context data. 
     def get_context_data(self, **kwargs: Any) -> Any:
         '''Add the UserCreationForm to the context data to pass it to the template'''
         context = super().get_context_data(**kwargs)
-        context['user_form'] = UserCreationForm()
+        if 'user_form' not in context:
+            context['user_form'] = UserCreationForm()
         return context
     
     # assignment 9 
@@ -89,12 +90,17 @@ class CreateProfileView(CreateView):
         '''This method is called after the form is validated but before saving the data to the database.'''
         # Reconstruct the UserCreationForm instance from the self.request.POST data
         user_form = UserCreationForm(self.request.POST)
-        # Call the save() method on the UserCreationForm instance
-        user = user_form.save()
-        # Attach the user to the Profile instance object
-        form.instance.user = user
-        # Delegate the rest to the super class’ form_valid method
-        return super().form_valid(form)
+        if user_form.is_valid():
+            # Save the User instance
+            user = user_form.save()
+            # Attach the User to the Profile
+            form.instance.user = user
+            # Save the Profile and delegate to the superclass
+            return super().form_valid(form)
+        else:
+            # If the user form is not valid, re-render the form with errors
+            return self.render_to_response(self.get_context_data(form=form, user_form=user_form))
+
     
 class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     '''
@@ -111,7 +117,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         '''
         # Within get_context_data method, create a context dictionary, add the Profile object (call the context variabale profile, for consistency with how things worked on other pages).
         context = super().get_context_data(**kwargs)
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        profile = Profile.objects.get(user=self.request.user)
         context['profile'] = profile
         return context
     
@@ -122,7 +128,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
         This method is called after the form is validated but before saving the data to the database.
         '''
         # look up the Profile object by its pk. You can find this pk in self.kwargs['pk'].
-        profile = Profile.objects.get(pk=self.kwargs['pk'])
+        profile = Profile.objects.get(user=self.request.user)
         # attach this object to the profile attribute of the status message.
         form.instance.profile = profile
 
@@ -150,7 +156,7 @@ class CreateStatusMessageView(LoginRequiredMixin, CreateView):
     def get_success_url(self) -> str:
         '''Return the URL to redirect to on success'''
         # return the URL corresponding to the profile page for whom the StatusMessage was added.
-        return reverse('show_profile', kwargs={'pk': self.kwargs['pk']})
+        return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
     
     # assignment 9: review the create update delete so only logged in users can do them
     def get_login_url(self) -> str:

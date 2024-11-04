@@ -16,13 +16,12 @@
         <tbody>
             {% for profile in profiles %}
             <tr>
-                <!-- create links to profile from user name and image -->
-                <td><a href="{% url 'show_profile' profile.pk %}">{{ profile.first_name}}</a></td>
-                <td>{{ profile.last_name }}</td>
-                <td>{{ profile.city }}</td>
-                <td>
-                    <a href="{% url 'show_profile' profile.pk %}"><img src="{{ profile.image_url }}" alt="Profile Image" width="150" height="150"></a>
-                </td>
+                        <td><a href="{% url 'show_profile' profile.pk %}">{{ profile.first_name}}</a></td>
+                        <td>{{ profile.last_name }}</td>
+                        <td>{{ profile.city }}</td>
+                        <td>
+                            <a href="{% url 'show_profile' profile.pk %}"><img src="{{ profile.image_url }}" alt="Profile Image" width="150" height="150"></a>
+                        </td>
             </tr>
             {% endfor %}
         </tbody>

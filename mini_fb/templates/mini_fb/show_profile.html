@@ -76,18 +76,11 @@ Choose formatting that you find aesthetically pleasing. -->
                 <td>
                     {% if profile.get_friends %}
                         {% for friend in profile.get_friends %}
-                        <!-- if it the friend is also user profile show link else just the name -->
-                            {% if friend.user == request.user %}
                                 <li>
                                     <a href="{% url 'show_profile' friend.pk %}">
                                         {{ friend.first_name }} {{ friend.last_name }}
                                     </a>
                                 </li>
-                            {% else %}
-                            <li>
-                                {{ friend.first_name }} {{ friend.last_name }}
-                            </li>
-                            {% endif %}
                         {% endfor %}
                     {% else %}
                         <p>This profile has no friends yet.</p>
@@ -97,9 +90,6 @@ Choose formatting that you find aesthetically pleasing. -->
         </tr>
     </table>
 
-
-
-    <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a> <br>
 
     <!-- links that require user to be logged in: -->
      {%if request.user.is_authenticated %}
@@ -115,7 +105,14 @@ Choose formatting that you find aesthetically pleasing. -->
             <a href="{% url 'friend_suggestions' %}">Friend Suggestions</a> <br>
 
             <a href="{% url 'news_feed' %}">News Feed</a> <br>
+        {% else %}
+            <!-- not their page  -->
+             <p>You have read-only permissions since this is not your page</p>
         {% endif %}
-
+        {% else %}
+            <!-- not logged in  -->
+            <p>You have read-only permissions since you are not logged in</p>
     {% endif %}
+
+    <a href="{% url 'show_all_profiles' %}">Back to All Profiles</a> <br>
 {% endblock %}
