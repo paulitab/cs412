@@ -29,5 +29,5 @@ urlpatterns = [
     # assignment 9
     # Add two new URLs to your application: 'login/' and 'logout/'.
     path(r'login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'),
-    path(r'logout/', auth_views.LogoutView.as_view(template_name='mini_fb/logout.html', next_page='show_all_profiles'), name="logout"), ## NEW,
+    path(r'logged_out/', auth_views.LogoutView.as_view(template_name='mini_fb/logged_out.html', next_page='show_all_profiles'), name="logged_out"), ## NEW,
 ]

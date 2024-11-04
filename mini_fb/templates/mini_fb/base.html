@@ -22,7 +22,7 @@
                 <!-- Revise the base.html template to account for having an authenticated user. show which user is logged in -->
                 {% if user.is_authenticated %}
                     <!-- log out url post method form-->
-                    <form method="POST" action="{% url 'logout' %}">
+                    <form method="POST" action="{% url 'logged_out' %}">
                         {% csrf_token %}
 
                         <!-- navigation URLS for logged in user -->
@@ -39,7 +39,7 @@
 
                         <!-- button that redirects to logout.html template -->
                         <input type="submit" value="Logout" class="button2">
-                        <input type="hidden" value="{% url 'logout' %}" name="next">
+                        <input type="hidden" value="{% url 'logged_out' %}" name="next">
                     </form> 
                     <li2>Welcome, {{ user.username }} !</li2>
                 {% else %}
