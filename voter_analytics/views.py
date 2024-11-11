@@ -85,6 +85,15 @@ class VoterGraphsView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
+
+        # Adding years from 1900 to 2023 to context
+        context['years'] = list(range(1900, 2024))
+
+        # voter scores
+        context['voter_scores'] = [0, 1, 2, 3, 4, 5]
+        
+        # Adding the elections list to context
+        context['elections'] = ['v20state', 'v21town', 'v21primary', 'v22general', 'v23town']
         
         # Filter Voters based on form inputs
         voters = self.get_queryset()  # Adjust if you need specific filtering logic
