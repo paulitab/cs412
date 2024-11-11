@@ -10,6 +10,7 @@ django-heroku = "*"
 pillow = "*"
 plotly = "*"
 pandas = "*"
+numpy = "*"
 
 [dev-packages]
 
