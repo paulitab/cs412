@@ -313,3 +313,25 @@ input.input-field {
     margin-bottom: 15px;
     font-size: 16px;
 }
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;   
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.filter-row label {
+    min-width: 150px;
+    font-weight: bold;
+}
+
+.checkbox-row {
+    display: flex;
+    gap: 1em;
+}

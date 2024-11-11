@@ -1,4 +1,6 @@
 from django.db import models
+import csv
+from datetime import datetime
 
 # create the Voter model
 class Voter(models.Model):
@@ -28,40 +30,52 @@ class Voter(models.Model):
 def load_data():
     '''Load data records from a CSV file into model instances'''   
 
-    # delete all records
+    # Delete all existing records
     Voter.objects.all().delete()
 
-    # open the file for reading
+    # Open the file for reading
     filename = '/Users/paulalburgos/Documents/BU/F24/cs412/newton_voters.csv'
 
-    f = open(filename)
-    headers = f.readline() # read/discard the headers
-    print(headers)
+    with open(filename, newline='') as f:
+        reader = csv.reader(f)
+        headers = next(reader)  # Skip the header row
+        print(headers)
 
-    # loop to read all the lines in the file
-    for line in f:
-        # provide some protection around code that might generate an exception
-        try: 
-            fields = line.split(',') # create a list of fields
+        # Loop to read all the lines in the file
+        for fields in reader:
+            try: 
+                # Parse dates directly
+                date_of_birth = fields[7].strip()
+                date_of_registration = fields[8].strip()
 
-            # create a new instance of Voter object with this record from CSV
-            voter = Voter(last_name=fields[0],
-                        first_name=fields[1],
-                        street_number=fields[2],
-                        street_name=fields[3],
-                        apartment_number=fields[4],
-                        zip_code=fields[5],
-                        date_of_birth=fields[6],
-                        date_of_registration=fields[7],
-                        party_affiliation=fields[8],
-                        precinct_number=fields[9],
-                        v20state=fields[10],
-                        v21town=fields[11],
-                        v21primary=fields[12],
-                        v22general=fields[13],
-                        v23town=fields[14],
-                        voter_score=fields[15])
-            voter.save()
-            print(f'Voter {voter} saved.')
-        except Exception as e:
-            print(f'Error: {e}')
+                # Convert Boolean fields
+                v20state = fields[11].strip().upper() == 'TRUE'
+                v21town = fields[12].strip().upper() == 'TRUE'
+                v21primary = fields[13].strip().upper() == 'TRUE'
+                v22general = fields[14].strip().upper() == 'TRUE'
+                v23town = fields[15].strip().upper() == 'TRUE'
+
+                # Create a new instance of Voter with this record from CSV
+                voter = Voter(
+                    last_name=fields[1].strip(),
+                    first_name=fields[2].strip(),
+                    street_number=fields[3].strip(),
+                    street_name=fields[4].strip(),
+                    apartment_number=fields[5].strip() if fields[5].strip() else None,
+                    zip_code=fields[6].strip(),
+                    date_of_birth=date_of_birth,
+                    date_of_registration=date_of_registration,
+                    party_affiliation=fields[9].strip(),
+                    precinct_number=fields[10].strip(),
+                    v20state=v20state,
+                    v21town=v21town,
+                    v21primary=v21primary,
+                    v22general=v22general,
+                    v23town=v23town,
+                    voter_score=int(fields[16].strip())
+                )
+                voter.save()
+                print(f'Voter {voter} saved.')
+                print(fields)
+            except Exception as e:
+                print(f'Error: Skipping record due to {e}')
