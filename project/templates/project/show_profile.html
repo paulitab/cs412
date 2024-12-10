@@ -1,0 +1,98 @@
+<!-- project/templates/project/show_profile.html -->
+<!-- 
+This template will render a profile page for one user (i.e., a single Profile record).
+Display all the data attributes stored in the Profile record. -->
+
+{% extends 'project/base.html' %}
+
+{% block title %}
+    Profile of {{ profile.first_name }} {{ profile.last_name }}
+{% endblock %}
+
+{% block content %}
+<section class="top-section">
+    <h2>{{ profile.first_name }} {{ profile.last_name }}</h2>
+
+    <!-- <img src="{{ profile.image_url }}" alt="{{ profile.first_name }}'s Profile Picture" width="200"> -->
+
+    <div class="card-container">
+        <table>
+            <tr>
+                <td><strong>First Name:</strong></td>
+                <td>{{ profile.first_name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Last Name:</strong></td>
+                <td>{{ profile.last_name }}</td>
+            </tr>
+            <tr>
+                <td><strong>Address:</strong></td>
+                <td>{{ profile.address }}</td>
+            </tr>
+            <tr>
+                <td><strong>Email:</strong></td>
+                <td>{{ profile.email }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- this user profiles friends -->
+            <h3>Friends</h3>
+            <div class="card-container">
+                    <!-- display the friends -->
+                    <tr>
+                        <td>
+                            {% if profile.get_friends %}
+                                {% for friend in profile.get_friends %}
+                                    <a href="{% url 'show_profile' friend.pk %}" class="top-link">
+                                        {{ friend.first_name }} {{ friend.last_name }}
+                                    </a>
+                                {% endfor %}
+                            {% else %}
+                                <p>This profile has no friends yet.</p>
+                            {% endif %}
+                        </td>
+                </tr>
+            </div>
+    <br>
+
+    <!-- this user profile's reviews -->
+    <!-- add the display of status messages. Use a loop to display all status messages. -->     
+    <tr>
+        <td><strong><h3>Reviews</h3></strong></td>
+        <td>
+            {% if review_messages %}
+                {% for review in review_messages %}
+                <div>
+                    <p>{{ review.message }}</p>
+                    Posted on: {{ review.timestamp }}
+                    {% if request.user.is_authenticated %}
+                        {%if request.user == profile.user%}
+                            <!-- delete --> 
+                            <a href="{% url 'delete_review' review.pk %}" class="top-link">Delete</a>     
+                            <!-- update -->    
+                            <a href="{% url 'update_review' review.pk %}" class="top-link">Update</a>     
+                        {% endif %}    
+                    {% endif %}    
+                </div>    
+                {% endfor %}    
+            {% else %}    
+                <p>No review messages yet!</p>   
+            {% endif %}    
+        </td>
+
+
+    <!-- only if this profile corresponds to this user's be able to do the following -->
+    {% if request.user.is_authenticated %}
+        {% if request.user == profile.user %}
+            <!-- make a review -->
+            <a href="{% url 'create_review' %}" class="order-card-header-button">Add a Review</a> <br> <br>
+            <!-- find friends -->
+            <a href="{% url 'friend_suggestions' %}" class="order-card-header-button">Find Friends</a> <br> <br>
+            <!-- update profile -->
+            <a href="{% url 'update_profile' %}" class="order-card-header-button">Update Profile</a> <br>   <br>
+        {% endif %}
+    {% endif %}
+    <a href="{% url 'show_all_profiles' %}" class="order-card-header-button">All Profiles</a> <br> <br>
+</section>
+{% endblock %}

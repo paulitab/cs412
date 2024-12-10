@@ -1,0 +1,14 @@
+<!-- project/templates/project/create_blog_post.html -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+<section class="top-section">
+    <h3>Create a New Blog Post</h3>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="button">Post</button>
+    </form>
+    <a href="{% url 'show_blog' %}" class="button">Back to Blog</a>
+</section>
+{% endblock %}

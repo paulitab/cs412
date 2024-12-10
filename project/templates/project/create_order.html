@@ -1,0 +1,14 @@
+<!-- project/create_order.html -->
+<!-- template that has the form to create a new order-->
+
+<section class="top-section">
+{% extends 'project/base.html' %}
+{% block content %}
+    <h2>Create New Order</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Create Order">
+    </form>
+</section>
+{% endblock %}

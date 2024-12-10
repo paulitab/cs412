@@ -1,0 +1,59 @@
+<!-- project/templates/project/recipe_statistics.html -->
+<!-- template to show statistics about recipes and ingredients -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+<section class="top-section">
+    <h2>Baulo Statistics</h2>
+    
+    <!-- Recipe Statistics -->
+    <div class="statistics-container">
+        <h3>Recipe Statistics</h3>
+        <p><strong>Total Recipes:</strong> {{ total_recipes }}</p>
+        <p><strong>Average Difficulty Level:</strong> {{ average_difficulty|floatformat:2 }}</p>
+        <p><strong>Maximum Difficulty Level:</strong> {{ max_difficulty }}</p>
+        <p><strong>Minimum Difficulty Level:</strong> {{ min_difficulty }}</p>
+        <p>
+            {% for level in recipes_per_level %}
+                <p> <strong>Level {{ level.difficulty_level }}: </strong>
+                {{ level.count }} recipe(s) </p> 
+            {% endfor %}
+        </p>
+    </div>
+
+    <!-- Ingredient Statistics -->
+    <div class="statistics-container">
+        <h3>Ingredient Statistics</h3>
+        <p><strong>Total Ingredients:</strong> {{ total_ingredients }}</p>
+        
+        <h4>Most Common Ingredients:</h4>
+        <p>
+            {% for ingredient in most_common_ingredients %}
+                <p><strong>{{ ingredient.ingredient__name }}:</strong> {{ ingredient.count }} recipes </p>
+            {% endfor %}
+        </p>
+
+        <h4>Ingredient Usage:</h4>
+        <p>
+            {% for ingredient in ingredient_usage %}
+                <p><strong>{{ ingredient.ingredient__name }}:</strong> used in {{ ingredient.total_used }} recipe(s)</p>
+            {% endfor %}
+        </p>
+    </div>
+
+    <!-- graphs -->
+    <h2>Distribution Graphs</h2>
+     <!-- graph for recipe by difficuylty graph -->
+    {% if difficulty_graph %}
+        <div>{{ difficulty_graph|safe }}</div>
+    {% else %}
+        <p>No data available for difficulty levels.</p>
+    {% endif %}
+     <!-- graph for ingredient distribution -->
+    {% if ingredient_graph %}
+        <div>{{ ingredient_graph|safe }}</div>
+    {% else %}
+        <p>No data available for difficulty levels.</p>
+    {% endif %}
+</section>
+{% endblock %}

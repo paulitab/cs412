@@ -1,0 +1,19 @@
+<!-- project/templates/project/update_status_form.html -->
+{% extends 'project/base.html' %}
+
+{% block title %}
+    Update Status Message
+{% endblock %}
+
+{% block content %}
+    <h2>Update Status Message</h2>
+
+    <form method="POST">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Update" class="button">
+    </form>
+
+    <a href="{% url 'show_profile' object.profile.pk %}" class="button">Cancel</a>
+
+{% endblock %}

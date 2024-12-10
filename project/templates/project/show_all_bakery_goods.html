@@ -1,0 +1,25 @@
+<!-- project/templates/project/show_all_bakery_goods.html -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+<section class="top-section">
+<div class="container mt-5">
+    <h2>Shop Our Bakery Goods</h2>
+
+        <div class="card-container">
+            {% for good in bakery_goods %}
+            <div class="card">
+                <img src="{{ good.image.url }}" alt="{{ good.name }}">
+                <h3>{{ good.name }}</h3>
+                <p>{{ good.description }}</p>
+                <p class="price">Price: ${{ good.price }}</p>
+                <div class="banner-links">
+                    <a href="{% url 'add_to_order' %}" class="button">Order Now</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</section>
+{% endblock %}

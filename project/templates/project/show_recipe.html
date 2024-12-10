@@ -1,0 +1,14 @@
+<!-- project/templates/project/show_recipe.html -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+<section class="top-section">
+    <h3>{{ recipe.name }}</h3>
+    <p>Difficulty Level: {{ recipe.difficulty_level}}</p>
+    <p>{{ recipe.instructions }}</p>
+    <img src="{{ recipe.image.url }}" alt="Recipe Image" width="300" height="300">
+
+    <!-- back to all recipes -->
+    <a href="{% url 'show_all_recipes' %}" class="order-card-header-button">Back to All Recipes</a>
+</section>
+{% endblock %}

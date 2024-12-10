@@ -1,0 +1,20 @@
+<!-- project/templates/project/login.html -->
+<!-- create template login.html -->
+
+{% extends 'project/base.html' %}
+{% block content %}
+<section class="top-section">
+    <h2>Login</h2>
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        {{form}}
+        <!-- redirect to all profile -->
+        <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
+        <input type="submit" value="Login" class="button">
+    </form>
+    {% if form.errors %}
+        <p style="color: red;">Invalid credentials. Please try again.</p>
+    {% endif %}
+    <p>Don't have an account? <a href="{% url 'register' %}" class="button">Register here</a></p>
+</section>
+{% endblock %}

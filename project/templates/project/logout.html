@@ -1,0 +1,10 @@
+<!-- project/templates/project/logout.html -->
+<!-- create template logout.html -->
+
+{% extends 'project/base.html' %}
+{% block content %}
+<section class="top-section">
+    <h1>You have been logged out.</h1>
+    <a href="{% url 'login' %}">Login again</a>
+</section>
+{% endblock %}

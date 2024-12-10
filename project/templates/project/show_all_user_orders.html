@@ -1,0 +1,42 @@
+<!-- project/user_orders.html -->
+<!-- template to show all the orders a log in user has -->
+
+{% extends 'project/base.html' %}
+{% block content %}
+<section class="top-section">
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Your Orders</h2>
+    <div class="row justify-content-center">
+        {% for order in orders %}
+        <div class="col-md-4 mb-4 d-flex align-items-stretch">
+            <div class="card w-100">
+                <div class="order-card-header">
+                    <strong>Order #{{ order.id }}</strong> - {{ order.order_date }} - <span class="text-capitalize">{{ order.status }}</span>
+                </div>
+                <div class="order-card-body">
+                    <h5 class="order-card-title text-center">Total Price: ${{ order.total_price}}</h5>
+                    <ul class="list-group list-group-flush">
+                        {% for item in order.orderitem_set.all %}
+                        <li class="list-group-item">
+                            <strong>{{ item.quantity }}x</strong> {{ item.bakery_good.name }} - ${{ item.bakery_good.price }}
+                        </li>
+                        {% endfor %}
+                    </ul>
+                    {% if order.status == 'in cart' %}
+                    <form method="post" action="{% url 'mark_order_pending' order.id %}">
+                        {% csrf_token %}
+                        <button class="order-card-header-button">Complete Order</button>
+                    </form>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div class="text-center mt-4">
+        Order more bakery items before we run out! <br><br>
+        <a href="{% url 'add_to_order' %}" class="order-card-header-button">Order More</a>
+    </div>
+</div>
+</section>
+{% endblock %}

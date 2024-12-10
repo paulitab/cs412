@@ -1,0 +1,38 @@
+<!-- project/add_to_order.html -->
+<!-- template to add a bakery good to an order -->
+
+{% extends 'project/base.html' %}
+{% block content %}
+<section class="top-section">
+<div class="container mt-4">
+    <h2 class="text-center mb-4">Add Items to Order</h2>
+    <form method="post" class="mb-4">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_bakery_good">Bakery good:</label>
+            {{ form.bakery_good }}
+        </div>
+        <div class="mb-3">
+            <label for="id_quantity">Quantity:</label>
+            {{ form.quantity }}
+        </div>
+        <button type="submit" class="order-card-header-button">Add Item</button>
+    </form>
+
+    <h4>Current Items in Order</h4>
+    {% if current_order %}
+    <ul class="list-group">
+        {% for item in order_items %}
+            {{ item.quantity }}x {{ item.bakery_good.name }} <br>
+        {% endfor %}
+    </ul>
+    <br>
+    <!-- changed their mind complete order button-->
+    <a href="{% url 'show_all_user_orders' %}" class="order-card-header-button">Complete Order</a>
+    {% else %}
+    <p>No items in this order yet.</p>
+    {% endif %}
+</div>
+</section>
+{% endblock %}
+

@@ -1,0 +1,43 @@
+<!-- project/templates/project/blog.html -->
+<!-- Create a new template named blog.html in the project/templates/project directory. -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+<section class="top-section">
+    <h2>Baulo Blog</h2>
+    <p><strong>Welcome to the Baulo Blog! Share your experiences with recipes you've tried or post new ideas for the community to explore!</strong></p>
+
+    <br>
+
+    <!-- Form to create a new post button -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'create_blog_post' %}" class="order-card-header-button">Create New Post</a> 
+    {% else %}
+        <p><a href="{% url 'login' %}">Login</a> to create a new post.</p>
+    {% endif %}
+
+    <br> <br>
+
+    <!-- Display all blog posts -->
+    <section class="blog-posts-section">
+        <h2>Recent Posts</h2>
+        {% if posts %}
+            {% for post in posts %}
+            <div class="blog-post">
+                <h4>{{ post.title }}</h4>
+                <p><strong>By:</strong> {{ post.author.first_name }} {{ post.author.last_name }} on {{ post.timestamp|date:"F j, Y, g:i a" }}</p>
+                <p>{{ post.content }}</p>
+                {% if post.image %}
+                    <div class="blog-post-image">
+                        <img src="{{ post.image.url }}" alt="Blog Image">
+                    </div>
+                {% endif %}
+            </div>
+            <hr class="blog-divider">
+            {% endfor %}
+        {% else %}
+            <p>No posts yet. Be the first to share your experience!</p>
+        {% endif %}
+    </section>
+</section>
+{% endblock %}

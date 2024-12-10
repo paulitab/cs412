@@ -1,0 +1,19 @@
+<!-- project/templates/project/register_profile.html -->
+
+<!-- display both the UserCreationForm and the CreateProfileForm -->
+{% extends 'project/base.html' %}
+{% block content %}
+<section class="top-section">
+    <h2>Create a User & Profile</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{user_form.as_table}}
+            {{form.as_table}}
+            <tr>
+                <td></td>
+                <td><input type="submit" name="submit" value="Create Profile"></td>
+        </table>
+    </form>
+</section>
+{% endblock %}

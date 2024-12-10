@@ -1,0 +1,76 @@
+<!-- project/templates/project/show_all_recipes.html -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+<section class="top-section">
+    <h2 class="section-title">All Recipes</h2>
+
+    <!-- button for statistics for recipes -->
+    <a href="{% url 'recipe_statistics' %}" class="order-card-header-button">Recipe Statistics</a>
+
+
+    <!-- Search Form for looking up recipes by name difficulty or and ingredients-->
+    <form method="get" action="{% url 'show_all_recipes' %}" class="search-form">
+        <h4>Search Recipe</h4>
+        <div class="search-field">
+            <label for="name">Search for a recipe by name:</label>
+            <input type="text" id="name" name="name" value="{{ name|default_if_none:'' }}" placeholder="Search by name">
+        </div>
+        <div class="search-field">
+            <label for="ingredients">Search for a recipe by ingredients:</label>
+            <input type="text" id="ingredients" name="ingredients" value="{{ ingredients|default_if_none:'' }}" placeholder="Search by ingredients">
+        </div>
+        <div class="search-field">
+            <label for="difficulty">Search for a recipe by difficulty level:</label>
+            <select id="difficulty" name="difficulty">
+                <option value="">Select Difficulty</option>
+                <option value="1" {% if difficulty == "1" %}selected{% endif %}>Level 1</option>
+                <option value="2" {% if difficulty == "2" %}selected{% endif %}>Level 2</option>
+                <option value="3" {% if difficulty == "3" %}selected{% endif %}>Level 3</option>
+                <option value="4" {% if difficulty == "4" %}selected{% endif %}>Level 4</option>
+                <option value="5" {% if difficulty == "5" %}selected{% endif %}>Level 5</option>
+            </select>
+        </div>
+        <button type="submit" class="search-button">Search</button>
+    </form>
+
+    <!-- display all recipes -->
+    <div class="recipe-cards-container">
+        {% for recipe in recipes %}
+        <div class="recipe-card">
+            <div class="recipe-card-header">
+                <!-- link to recipe -->
+                <h3><a href="{% url 'show_recipe' recipe.pk %}" class="top-link">{{ recipe.name }}</a></h3>
+                <p><strong>Difficulty Level {{ recipe.difficulty_level }}</strong> </p>
+            </div>
+            <div class="recipe-card-body">
+                <p>{{ recipe.instructions }}</p>
+            </div>
+            <div class="recipe-card-image">
+                {% if recipe.image %}
+                <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
+                {% else %}
+                <p>No image available</p>
+                {% endif %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- navigation for different pages of results -->
+    <div class="row">
+        {% if is_paginated %}
+        <ul class="pagination">
+            {% if page_obj.has_previous %}
+                <span><a href="?page={{ page_obj.previous_page_number }}" class="pag-button">Previous</a></span>
+            {% endif %}
+            <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            {% if page_obj.has_next %}
+                <span><a href="?page={{ page_obj.next_page_number }}" class="pag-button">Next</a></span>
+            {% endif %}
+        </ul>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+

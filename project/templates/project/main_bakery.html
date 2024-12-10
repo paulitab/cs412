@@ -1,0 +1,72 @@
+<!-- project/templates/project/main_bakery.html -->
+{% extends 'project/base.html' %}
+
+{% block content %}
+
+<section class="top-section">
+    <!-- <h2>Our Highlights</h2> -->
+    <div class="highlight-grid">
+        <!-- Top Recipes -->
+        <div class="highlight-card">
+            <!-- if the user is logged be able to follow the link, otherwise show a message saying log in first -->
+            <a href="{% url 'show_all_recipes' %}" class="top-link">
+                <h3>Top Recipes</h3>
+            </a>
+            <ul>
+                {% for recipe in top_recipes %}
+                <li>
+                    <strong>{{ recipe.name }}</strong> - Difficulty Level {{ recipe.difficulty_level }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <!-- Top Bakery Goods -->
+        <div class="highlight-card">
+            <a href="{% url 'show_all_bakery_goods' %}" class="top-link">
+                <h3>Top Bakery Items</h3>
+            </a>
+            <ul>
+                {% for item in top_items %}
+                <li>
+                    <strong>{{ item.name }} </strong>
+                    - ${{ item.price }}
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <!-- make an order -->
+    <div class="highlight-card">
+        <h2>Order Now</h2>
+        <p>Order your favorite bakery items now!</p>
+        <div class="banner-links">
+            <a href="{% url 'show_all_bakery_goods' %}" class="button">Order Now</a>
+        </div>
+    </div>
+
+    <!-- explore the blog and show user reviews (comments on the blog) -->
+    <div class="highlight-card">
+        <h2>Explore Our Blog</h2>
+        <p>Read our blog to learn more about our bakery items and recipes.</p>
+        <div class="banner-links">
+            <a href="{% url 'show_blog' %}" class="button">Explore Blog</a>
+        </div>
+    </div>
+    
+    <!-- Top Review from Users -->
+    <div class="highlight-card">
+        <h2>Reviews</h2>
+            <ul>
+            {% for review in top_reviews %}
+                <li>
+                    {{ review.message }} 
+                    - {{ review.profile }}
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+
+{% endblock %}
