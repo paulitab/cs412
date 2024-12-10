@@ -323,7 +323,7 @@ input.input-field {
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.3s ease-in-out;
-    width: 600px;
+    width: 300px;
     margin: 0 auto;
 }
 
