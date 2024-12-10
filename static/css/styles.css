@@ -323,7 +323,7 @@ input.input-field {
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.3s ease-in-out;
-    width: 300px;
+    width: 600px;
 }
 
 .recipe-card:hover {
