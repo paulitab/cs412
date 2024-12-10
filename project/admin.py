@@ -1,4 +1,7 @@
 # project/admin.py
+# Paula Lopez Burgos, paulalb@bu.edu, 11/20/2024
+# Description: This file registers the models in the admin site
+
 from django.contrib import admin
 from .models import *
 

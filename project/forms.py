@@ -1,4 +1,5 @@
 # project/forms.py
+# Paula Lopez Burgos, paulalb@bu.edu, 12/06/2024
 # define the forms for the project app
 
 from django import forms
@@ -11,6 +12,7 @@ class CreateProfileForm(forms.ModelForm):
     '''
     # Be sure to specify the inner-class Meta, which relates this form to the Profile model.
     class Meta:
+        # specify the model that this form will interact with
         model = UserProfile
         # specify the list of fields that this form should set (i.e., all of the data attributes of the Profile class).
         fields = ['first_name', 'last_name', 'address', 'email'] 
@@ -22,6 +24,7 @@ class CreateReviewForm(forms.ModelForm):
     '''
     # Be sure to specify the inner-class Meta, which relates this form to the Review model.
     class Meta:
+        # specify the model that this form will interact with
         model = Review
         # specify the list of fields that this form should set (i.e., all of the data attributes of the StatusMessage class).
         fields = ['message']
@@ -33,6 +36,7 @@ class UpdateProfileForm(forms.ModelForm):
     '''
     # Be sure to specify the inner-class Meta, which relates this form to the Profile model.
     class Meta:
+        # specify the model that this form will interact with
         model = UserProfile
         # specify the list of fields that this form should set 
         # NOT the user’s first name or last name, which should not be changeable
@@ -40,8 +44,14 @@ class UpdateProfileForm(forms.ModelForm):
 
 # Create a new form class for creating a blog post
 class CreateBlogPostForm(forms.ModelForm):
+    '''
+    A form to add a BlogPost to the database
+    '''
+    # Be sure to specify the inner-class Meta, which relates this form to the BlogPost model.
     class Meta:
+        # specify the model that this form will interact with
         model = BlogPost
+        # specify the list of fields that this form should set
         fields = ['title', 'content', 'recipe', 'image']
         widgets = {
             'recipe': forms.TextInput(attrs={'placeholder': 'Describe the recipe you tried'}),
