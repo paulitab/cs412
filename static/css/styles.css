@@ -299,7 +299,7 @@ input.input-field {
 
 .recipe-cards-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
     gap: 0px; /* Space between cards */
     padding: 20px;
 }
@@ -324,7 +324,6 @@ input.input-field {
     justify-content: space-between;
     transition: transform 0.3s ease-in-out;
     width: 300px;
-    margin: 0 auto;
 }
 
 .recipe-card:hover {
