@@ -1,0 +1,304 @@
+/* CSS code Paula Lopez Burgos */
+
+/* body {
+    font-family: 'Poppins', Arial, sans-serif; 
+    color: grey;
+    background: rgb(171, 211, 220);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+} */
+
+body {
+    background-color: gainsboro;
+    color: #3e3e3e; 
+    /* font-family: 'Georgia', serif;  */
+    font-family: 'Cinzel', serif;
+}
+
+div {
+    color: grey;
+    border: 1px solid white;
+    margin: 25px;
+    padding: 20px;
+}
+
+/*table*/
+table {
+    border: none;
+    border-collapse: collapse;
+}
+
+/* column */
+td {
+    text-align: left;
+    border: none;
+    padding: 10px;
+}
+
+/* row */
+tr {
+    border: none;
+    margin-bottom: 15px;
+}
+
+/* header */
+header {
+    background-color: #2b2d42;
+    color: #edf2f4;
+    padding: 20px;
+    text-align: center;
+    border-bottom: 4px solid #4469bb;
+}
+
+header h1 {
+    font-size: 2.8em;
+    font-weight: 600;
+    margin-bottom: 0;
+    font-family: 'Lora', serif; 
+    color: 2c4150;
+}
+
+h2 {
+    color: #edf2f4;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+p {
+    text-align: center;
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+a {
+    color: #638ca8;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #a6aacd;
+    text-decoration: underline;
+}
+
+nav {
+    background-color: #a6aacd; /* A warm brown, resembling rustic wooden elements */
+    padding: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px 16px;
+}
+
+li2 {
+    color: #fff;
+    font-weight: bold;
+    text-decoration: none;
+    padding: 8px 16px;
+    font-size: 1.5em;
+}
+
+
+footer {
+    background-color: #638ca8;
+    color: #fff;
+    text-align: center;
+    padding: 10px;
+}
+
+/* p {
+    font-size: 1.2em;
+    text-align: center;
+    max-width: 750px;
+    margin: 20px auto;
+    color: #666;
+} */
+
+/* image styling */
+img {
+    display: block;
+    max-width: 350px;
+    margin: 20px auto;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.quote-box {
+    background-color: #edf2f4;
+    padding: 20px;
+    border-radius: 10px;
+    margin: 20px auto;
+    max-width: 800px;
+    border: 2px solid #638ca8;
+}
+
+.quote-box p {
+    font-size: 1.2em;
+    font-style: italic;
+    color: #333;
+}
+
+.image-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    padding: 20px;
+    max-width: 1000px;
+    margin: 40px auto;
+}
+
+.image-grid img {
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.image-grid img:hover {
+    transform: scale(1.05);
+}
+
+footer {
+    background-color: #2b2d42;
+    color: #edf2f4;
+    text-align: center;
+    padding: 15px;
+    font-size: 0.9em;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    margin-top: 40px;
+}
+
+footer p {
+    color: #a8dadc;
+}
+
+/* select */
+select {
+    background-color: #bbb7b7;
+    border-color: rgb(224, 220, 220);
+}
+
+/* input */
+input {
+    background-color: #bbb7b7;
+    border-color: rgb(255, 255, 255);
+    /* border: none; */
+}
+
+/* button */
+.button {
+    background-color: #bbb7b7;
+    color: 8b4513;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    border: none;
+}
+
+.button:hover {
+    background-color: #666666;
+}
+
+/* make button look like the links in line with them*/
+.button2 {
+    background-color: #666666;
+    color: #fff;
+    font-weight: bold;
+    padding: 2px 4px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 2px 1px;
+    cursor: pointer;
+    border-radius: 4px;
+    border: none;
+    margin-left: 14px;
+}
+
+.button2:hover {
+    background-color: gainsboro
+}
+
+/* form */
+textarea {
+    background-color: #bbb7b7;
+    border-color: rgb(255, 255, 255);
+}
+
+.carousel-inner {
+    border: none; 
+    width: 90%;
+    max-width: 1200px;
+}
+
+.carousel-item img {
+    margin: 0 auto; 
+    display: block;
+    border-radius: 8px;
+    box-shadow: none; 
+    border: none;
+}
+
+.carousel {
+    margin: 0 auto; 
+    width: 80%;
+    border: none;
+    justify-content: center;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(0.5); 
+}
+
+input[type="text"], textarea {
+    width: 400px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+input.input-field {
+    width: 400px;
+    height: 40px;
+    padding: 10px;
+    margin-bottom: 15px;
+    font-size: 16px;
+}
+
+.filter-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;   
+}
+
+.filter-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.filter-row label {
+    min-width: 150px;
+    font-weight: bold;
+}
+
+.checkbox-row {
+    display: flex;
+    gap: 1em;
+}

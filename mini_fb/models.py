@@ -156,7 +156,6 @@ class Image(models.Model):
     # be sure to include the __str__ method on this class to return a string representation of this object.
     def __str__(self):
         '''Return a string representation of this object.'''
-
         return f'{self.image} uploaded at {self.timestamp}'
 
 # Assignment 8

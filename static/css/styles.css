@@ -18,7 +18,7 @@ body {
 
 div {
     color: grey;
-    border: 1px solid white;
+    /* border: 1px solid white; */
     margin: 25px;
     padding: 20px;
 }
@@ -27,6 +27,8 @@ div {
 table {
     border: none;
     border-collapse: collapse;
+    /* center it */
+    text-align: left;
 }
 
 /* column */
@@ -59,15 +61,6 @@ header h1 {
     color: #edf2f4;
 }
 
-/* h2 {
-    font-size: 2.4em;
-    font-family: 'Lora', serif;
-    font-style: italic;
-    text-align: center;
-    color: #2b2d42;
-    margin-top: 30px;
-} */
-
 h2 {
     color: #8b4513;
     text-align: center;
@@ -96,32 +89,7 @@ a:hover {
     text-decoration: underline;
 }
 
-/*  navigation */
-/* nav {
-    margin-top: 10px;
-    display: flex;
-    justify-content: flex-start;
-    padding-left: 20px;
-}
-
-nav a {
-    color: #4469bb;
-    font-size: 1.2em;
-    margin: 0 20px;
-    text-decoration: none;
-    font-weight: 500;
-    padding: 5px 10px;
-    background-color: #aec2ed;
-    border-radius: 20px; 
-}
-
-nav a:hover {
-    background-color: #7ff1f7;
-    transform: translateY(-3px); 
-} */
-
 nav {
-    background-color: #2b2d42; /* A warm brown, resembling rustic wooden elements */
     padding: 10px;
 }
 
@@ -140,7 +108,6 @@ li2 {
     font-size: 1.5em;
 }
 
-
 footer {
     background-color: #8b4513;
     color: #fff;
@@ -148,13 +115,6 @@ footer {
     padding: 10px;
 }
 
-/* p {
-    font-size: 1.2em;
-    text-align: center;
-    max-width: 750px;
-    margin: 20px auto;
-    color: #666;
-} */
 
 /* image styling */
 img {
@@ -334,4 +294,516 @@ input.input-field {
 .checkbox-row {
     display: flex;
     gap: 1em;
+}
+/* styling for recipes */
+
+.recipe-cards-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(800px, 1fr));
+    gap: 40px; /* Space between cards */
+    padding: 20px;
+}
+
+/* Recipe Grid */
+.recipe-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+/* Recipe Card */
+.recipe-card {
+    background: #fff;
+    border: 1px solid #e8ded2;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.3s ease-in-out;
+}
+
+.recipe-card:hover {
+    transform: translateY(-5px);
+}
+
+/* Recipe Card Header */
+.recipe-card-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.recipe-card-header h3 {
+    font-size: 1.5em;
+    color: #8b4513;
+    margin: 0;
+}
+
+.recipe-card-header p {
+    font-size: 1em;
+    color: #3c3c3c;
+}
+
+/* Recipe Card Body */
+.recipe-card-body {
+    margin-bottom: 20px;
+    color: #3e3e3e;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+/* Recipe Card Image */
+.recipe-card-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Main Banner */
+.main-banner {
+    background: url('/static/images/cookiechoco.jpg') no-repeat center center;
+    background-size: cover;
+    color: #fff;
+    text-align: center;
+    padding: 5px 20px;
+    border-radius: 15px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.banner-text h1 {
+    font-size: 3em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #fff5eb;
+}
+
+.banner-text p {
+    font-size: 1.5em;
+    margin-bottom: 30px;
+    color: #fff5eb;
+}
+
+.banner-links .button {
+    background-color: #8b4513;
+    color: #fff;
+    padding: 10px 20px;
+    text-decoration: none;
+    font-size: 1.2em;
+    border-radius: 5px;
+    margin: 0 10px;
+    transition: background-color 0.3s ease;
+}
+
+.banner-links .button:hover {
+    background-color: #aa6e39;
+}
+
+/* Highlight Section */
+.top-section {
+    padding: 0px 0px;
+    background-color: #fff5eb;
+    text-align: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.top-section h2 {
+    font-size: 2.5em;
+    color: #8b4513;
+    margin-bottom: 20px;
+}
+
+.highlight-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.highlight-card {
+    background: #fff;
+    border: 1px solid #e8ded2;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.highlight-card:hover {
+    transform: translateY(-5px);
+}
+
+.highlight-card h3 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #8b4513;
+}
+
+.highlight-card ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-size: 1em;
+}
+
+.highlight-card ul li {
+    margin: 10px 0;
+}
+
+.highlight-card ul li a {
+    color: #3e3e3e;
+    text-decoration: none;
+}
+
+.highlight-card ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Quick Links Section */
+.links-section {
+    background-color: #f5e1d1;
+    padding: 50px 20px;
+    text-align: center;
+}
+
+.links-section h2 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #8b4513;
+}
+
+.quick-links {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 20px;
+}
+
+.link-card {
+    background: #8b4513;
+    color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 1.2em;
+    transition: background-color 0.3s ease;
+    text-align: center;
+}
+
+.link-card:hover {
+    background-color: #aa6e39;
+}
+
+.carousel-item {
+    width: 100%;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    filter: invert(1); /* Make the controls visible on dark images */
+}
+
+.carousel img {
+    z-index: 0;
+}
+
+.carousel {
+    /* width: 60%; */
+    height: 50vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; 
+    position: relative;
+}
+
+.carousel-inner img {
+    width: 30%; /* Full width */
+    height: 50vh; /* Full viewport height */
+    object-fit: cover; /* Ensures images fit the area without distortion */
+}
+
+/* styling of order items in show all bakery goods */
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap; 
+    gap: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.card {
+    text-align: center; /* Center the content inside each card */
+    max-width: 300px; /* Set a maximum width for consistent card sizing */
+    margin: 0 auto; /* Center the card itself */
+    border: 1px solid #e0e0e0; /* Optional: Add a border */
+    border-radius: 8px; /* Optional: Round the corners */
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+    padding: 20px; /* Add padding inside the card */
+}
+
+.card:hover {
+    transform: translateY(-5px);
+}
+
+.card-img-top {
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.card img {
+    width: 100%; /* Ensure the image scales properly */
+    border-radius: 8px; /* Optional: Round the image corners */
+    margin-bottom: 15px; /* Add space below the image */
+}
+
+.card h3 {
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.card p {
+    font-size: 1em;
+    color: #555; /* Optional: Text color */
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.card .price {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #8b4513; /* Optional: Highlight price color */
+    text-align: center;
+}
+
+/* make login logout links visible */
+.login-link {
+    font-size: 1.2em; 
+    font-weight: bold;
+    color: #fff; 
+    background-color: #8b4513;
+    padding: 10px 20px; 
+    border-radius: 5px; 
+    text-decoration: none;
+    position: absolute;
+    top: 42px; 
+    right: 37px;
+    z-index: 2; 
+    transition: background-color 0.3s ease; 
+}
+
+.login-link:hover {
+    background-color: #aa6e39; 
+}
+
+.welcome {
+    font-size: 1em;
+    font-weight: bold;
+    color: #fff;
+    position: absolute; 
+    top: 12px; 
+    left: 1790px;
+    margin-bottom: 20px; 
+}
+
+/* order cards styling */
+.order-card {
+    border-radius: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.order-card-header {
+    font-size: 1.1rem;
+    color: #8b4513;
+}
+
+.order-card-header-button {
+    background-color: #8b4513;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+
+/* style for the top bakery good and top recipes link */
+.top-link {
+    text-decoration: none;
+    color: inherit;
+}
+
+/* styling for profile table */
+.th2{
+    color: #8b4513;
+    text-align: center;
+    font-size: 1em;
+    font-weight: bold;
+}
+
+/* styling for blogs */
+.blog-post {
+    margin-bottom: 20px;
+    padding: 15px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 50%;
+    margin: 0 auto;
+}
+
+.blog-post h4 {
+    font-size: 1.5rem;
+    color: #8b4513; /* Warm brown color */
+    margin-bottom: 10px;
+}
+
+.blog-post p {
+    font-size: 1rem;
+    color: #333; /* Standard readable text */
+    margin-bottom: 10px;
+}
+
+.blog-post-image {
+    margin-top: 15px;
+    text-align: center; /* Center-align the image */
+}
+
+.blog-post-image img {
+    max-width: 400px; /* Restrict the image width */
+    height: auto;
+    border-radius: 5px; /* Rounded corners for the image */
+    border: 1px solid #ddd; /* Light border around the image */
+    padding: 5px;
+    background-color: #fff; /* White background for the border */
+}
+
+.blog-divider {
+    border: none;
+    height: 1px;
+    background: #ccc; /* Divider line between posts */
+    margin: 20px 0;
+}
+
+.blog-posts-section h2 {
+    font-size: 2rem;
+    color: #8b4513; /* Warm brown color */
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* styling for pagination button*/
+.pag-button {
+    color: #8b4513;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-size: 0.9rem;
+    transition: background-color 0.3s ease;
+}
+.pagination {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/*  styling for the search form */
+.search-form {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 600px;
+    margin: 20px auto;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for individual fields */
+.search-field {
+    margin-bottom: 15px;
+}
+
+/* Styling for labels */
+.search-field label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* Styling for text inputs */
+.search-field input[type="text"],
+.search-field select {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+/* Styling for the search button */
+.search-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #8b4513;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.search-button:hover {
+    background-color: #8b4513;
+}
+
+/* Adding hover effects */
+.search-field input[type="text"]:hover,
+.search-field select:hover {
+    border-color: #8b4513;
+}
+
+/* styling for statistics */
+.statistics-container {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.statistics-container p, .statistics-container ul {
+    font-size: 16px;
+    margin: 10px 0;
+}
+
+.statistics-container h3, .statistics-container h4 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+.statistics-container h3 {
+    color: #8b4513;
+    text-align: center;
+    font-size: 1.4em;
+}
+
+.statistics-container h4 {
+    color: #000000;
+    text-align: center;
 }
