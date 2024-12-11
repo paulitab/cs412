@@ -1,4 +1,5 @@
-<!-- project/user_orders.html -->
+<!-- project/show_all_user_orders.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 12/01/2024 -->
 <!-- template to show all the orders a log in user has -->
 
 {% extends 'project/base.html' %}
@@ -16,12 +17,14 @@
                 <div class="order-card-body">
                     <h5 class="order-card-title text-center">Total Price: ${{ order.total_price}}</h5>
                     <ul class="list-group list-group-flush">
+                        <!-- for every item in the items in the order -->
                         {% for item in order.orderitem_set.all %}
                         <li class="list-group-item">
                             <strong>{{ item.quantity }}x</strong> {{ item.bakery_good.name }} - ${{ item.bakery_good.price }}
                         </li>
                         {% endfor %}
                     </ul>
+                    <!-- if the order status is in cart user can mark it as pending (form) otw order is being processed -->
                     {% if order.status == 'in cart' %}
                     <form method="post" action="{% url 'mark_order_pending' order.id %}">
                         {% csrf_token %}

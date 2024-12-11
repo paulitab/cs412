@@ -1,4 +1,6 @@
 <!-- project/templates/project/show_all_bakery_goods.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 11/29/2024 -->
+<!-- This template displays all the bakery goods in the database. -->
 {% extends 'project/base.html' %}
 
 {% block content %}
@@ -7,6 +9,7 @@
     <h2>Shop Our Bakery Goods</h2>
 
         <div class="card-container">
+            <!-- for every good in the bakery good from the db display it as follows -->
             {% for good in bakery_goods %}
             <div class="card">
                 <img src="{{ good.image.url }}" alt="{{ good.name }}">

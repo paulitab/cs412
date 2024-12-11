@@ -1,4 +1,6 @@
 <!-- project/templates/project/show_all_recipes.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 11/29/2024 -->
+<!-- This template will render a page that displays all recipes as well as a search form and the recipe statistics for it. -->
 {% extends 'project/base.html' %}
 
 {% block content %}
@@ -21,6 +23,7 @@
             <input type="text" id="ingredients" name="ingredients" value="{{ ingredients|default_if_none:'' }}" placeholder="Search by ingredients">
         </div>
         <div class="search-field">
+            <!-- drop down -->
             <label for="difficulty">Search for a recipe by difficulty level:</label>
             <select id="difficulty" name="difficulty">
                 <option value="">Select Difficulty</option>
@@ -47,6 +50,7 @@
                 <p>{{ recipe.instructions }}</p>
             </div>
             <div class="recipe-card-image">
+                <!-- if the recipe has an image show it -->
                 {% if recipe.image %}
                 <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}">
                 {% else %}
@@ -59,12 +63,15 @@
 
     <!-- navigation for different pages of results -->
     <div class="row">
+        <!-- if the pagination is set (which it is) -->
         {% if is_paginated %}
         <ul class="pagination">
+            <!-- if there is an earlier page -->
             {% if page_obj.has_previous %}
                 <span><a href="?page={{ page_obj.previous_page_number }}" class="pag-button">Previous</a></span>
             {% endif %}
             <span>Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}</span>
+            <!-- if there is a later page -->
             {% if page_obj.has_next %}
                 <span><a href="?page={{ page_obj.next_page_number }}" class="pag-button">Next</a></span>
             {% endif %}

@@ -1,10 +1,12 @@
 <!-- project/templates/project/login.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 11/22/2024 -->
 <!-- create template login.html -->
 
 {% extends 'project/base.html' %}
 {% block content %}
 <section class="top-section">
     <h2>Login</h2>
+    <!-- form to login -->
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
         {{form}}
@@ -12,9 +14,11 @@
         <input type="hidden" name="next" value="{% url 'show_all_profiles' %}">
         <input type="submit" value="Login" class="button">
     </form>
+    <!-- debugging -->
     {% if form.errors %}
         <p style="color: red;">Invalid credentials. Please try again.</p>
     {% endif %}
+    <!-- register create user and profile -->
     <p>Don't have an account? <a href="{% url 'register' %}" class="button">Register here</a></p>
 </section>
 {% endblock %}

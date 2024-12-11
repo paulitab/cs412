@@ -1,20 +1,19 @@
 <!-- project/templates/project/create_review_form.html -->
-<!-- render the HTML form.  -->
-<!-- Your form must:
-    definite the <form> tags, and set the form’s method to POST
-    include the django-created csrf_token as a form field
-    provide a submit button -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 12/03/2024 -->
+<!-- html that includes the post form method to have a user create a review-->
 
     {% extends 'project/base.html' %}
 
     {% block content %}
     
-    <h2>Create a Status</h2>
+    <h2>Create a Review </h2>
     
+    <!-- form for creating a review -->
     <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         <table>
             {{form.as_table}}
+            <!-- submit button -->
             <tr>
                 <td><input type="submit" name="submit" value="Create Review"></td>
             </tr>

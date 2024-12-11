@@ -1,4 +1,6 @@
 <!-- project/templates/project/update_status_form.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 12/03/2024 -->
+<!-- template that has the form to updare a review -->
 {% extends 'project/base.html' %}
 
 {% block title %}
@@ -8,12 +10,14 @@
 {% block content %}
     <h2>Update Status Message</h2>
 
+    <!-- form to update -->
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Update" class="button">
     </form>
 
+    <!-- cancel button -->
     <a href="{% url 'show_profile' object.profile.pk %}" class="button">Cancel</a>
 
 {% endblock %}

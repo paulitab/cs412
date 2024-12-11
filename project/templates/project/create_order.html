@@ -1,10 +1,12 @@
 <!-- project/create_order.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 11/29/2024 -->
 <!-- template that has the form to create a new order-->
 
 <section class="top-section">
 {% extends 'project/base.html' %}
 {% block content %}
     <h2>Create New Order</h2>
+    <!-- form to create a new order -->
     <form method="post">
         {% csrf_token %}
         {{ form.as_p }}

@@ -1,4 +1,6 @@
 <!-- project/templates/project/friend_suggestions.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 12/02/2024 -->
+<!-- template to show friend suggestions for a user -->
 
 {% extends 'project/base.html' %}
 
@@ -10,8 +12,10 @@
 <section class="top-section">
     <h2>Friend Suggestions for {{ profile.first_name }} {{ profile.last_name }}</h2>
     
+    <!-- if there are friends to be suggested (nto already friends with with everyone) -->
     {% if friend_suggestions %}
         <ul>
+            <!-- for each friend not yet added -->
             {% for suggestion in friend_suggestions %}
                     {{ suggestion.first_name }} {{ suggestion.last_name }}
                     <a href="{% url 'add_friend' suggestion.pk %}" class="order-card-header-button">Add Friend</a>

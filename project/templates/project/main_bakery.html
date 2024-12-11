@@ -1,18 +1,19 @@
 <!-- project/templates/project/main_bakery.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 11/23/2024 -->
+<!-- template where the Home main bakery landing page is coded -->
 {% extends 'project/base.html' %}
 
 {% block content %}
 
 <section class="top-section">
-    <!-- <h2>Our Highlights</h2> -->
     <div class="highlight-grid">
         <!-- Top Recipes -->
         <div class="highlight-card">
-            <!-- if the user is logged be able to follow the link, otherwise show a message saying log in first -->
             <a href="{% url 'show_all_recipes' %}" class="top-link">
                 <h3>Top Recipes</h3>
             </a>
             <ul>
+                <!-- for recipe in top recipes from context variable -->
                 {% for recipe in top_recipes %}
                 <li>
                     <strong>{{ recipe.name }}</strong> - Difficulty Level {{ recipe.difficulty_level }}
@@ -27,6 +28,7 @@
                 <h3>Top Bakery Items</h3>
             </a>
             <ul>
+                <!-- for item in top items from context variable -->
                 {% for item in top_items %}
                 <li>
                     <strong>{{ item.name }} </strong>
@@ -59,6 +61,7 @@
     <div class="highlight-card">
         <h2>Reviews</h2>
             <ul>
+            <!-- for review in top reviews from context variable -->
             {% for review in top_reviews %}
                 <li>
                     {{ review.message }} 

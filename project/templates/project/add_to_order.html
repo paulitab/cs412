@@ -1,4 +1,5 @@
 <!-- project/add_to_order.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 11/28/2024 -->
 <!-- template to add a bakery good to an order -->
 
 {% extends 'project/base.html' %}
@@ -6,22 +7,28 @@
 <section class="top-section">
 <div class="container mt-4">
     <h2 class="text-center mb-4">Add Items to Order</h2>
+    <!-- form to add an order -->
     <form method="post" class="mb-4">
         {% csrf_token %}
+        <!-- choose bakery good -->
         <div class="mb-3">
             <label for="id_bakery_good">Bakery good:</label>
             {{ form.bakery_good }}
         </div>
+        <!-- and quantity -->
         <div class="mb-3">
             <label for="id_quantity">Quantity:</label>
             {{ form.quantity }}
         </div>
+        <!-- button to submit form -->
         <button type="submit" class="order-card-header-button">Add Item</button>
     </form>
 
     <h4>Current Items in Order</h4>
+    <!-- if statement to chekc if this user already has an order that is not pending or complete (= in cart) -->
     {% if current_order %}
     <ul class="list-group">
+        <!-- for loop that goes through order items in this current order -->
         {% for item in order_items %}
             {{ item.quantity }}x {{ item.bakery_good.name }} <br>
         {% endfor %}

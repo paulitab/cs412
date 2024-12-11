@@ -1,4 +1,5 @@
 <!-- project/templates/project/recipe_statistics.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 12/09/2024 -->
 <!-- template to show statistics about recipes and ingredients -->
 {% extends 'project/base.html' %}
 
@@ -14,6 +15,7 @@
         <p><strong>Maximum Difficulty Level:</strong> {{ max_difficulty }}</p>
         <p><strong>Minimum Difficulty Level:</strong> {{ min_difficulty }}</p>
         <p>
+            <!-- for each of the levels identified from the context show the count for each -->
             {% for level in recipes_per_level %}
                 <p> <strong>Level {{ level.difficulty_level }}: </strong>
                 {{ level.count }} recipe(s) </p> 
@@ -28,13 +30,16 @@
         
         <h4>Most Common Ingredients:</h4>
         <p>
+            <!-- for each of the most common ingredients from views -->
             {% for ingredient in most_common_ingredients %}
                 <p><strong>{{ ingredient.ingredient__name }}:</strong> {{ ingredient.count }} recipes </p>
             {% endfor %}
         </p>
 
+        <!-- How are ingredients being used -->
         <h4>Ingredient Usage:</h4>
         <p>
+            <!-- for each of the ingredients used in the recipes context-->
             {% for ingredient in ingredient_usage %}
                 <p><strong>{{ ingredient.ingredient__name }}:</strong> used in {{ ingredient.total_used }} recipe(s)</p>
             {% endfor %}
@@ -43,13 +48,13 @@
 
     <!-- graphs -->
     <h2>Distribution Graphs</h2>
-     <!-- graph for recipe by difficuylty graph -->
+     <!-- if graph for recipe by difficuylty graph exists show it-->
     {% if difficulty_graph %}
         <div>{{ difficulty_graph|safe }}</div>
     {% else %}
         <p>No data available for difficulty levels.</p>
     {% endif %}
-     <!-- graph for ingredient distribution -->
+     <!-- if graph for ingredient graph exists show it-->
     {% if ingredient_graph %}
         <div>{{ ingredient_graph|safe }}</div>
     {% else %}

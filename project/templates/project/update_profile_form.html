@@ -1,4 +1,7 @@
 <!-- project/templates/project/update_profile_form.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 12/04/2024 -->
+<!-- template that allows logged in user to update their profile -->
+
 {% extends 'project/base.html' %}
 <section class="top-section">
 {% block title %}
@@ -8,6 +11,7 @@
 {% block content %}
     <h2>Update Profile</h2>
     
+    <!-- form to update -->
     <form method="POST">
         {% csrf_token %}
         {{ form.as_p }}

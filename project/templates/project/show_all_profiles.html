@@ -1,4 +1,6 @@
 <!-- project/templates/project/show_all_profiles.html -->
+<!-- Paula Lopez Burgos, paulalb@bu.edu, 11/28/2024 -->
+<!-- This template will render a page that displays all the Profile records in the database. -->
 {% extends 'project/base.html' %}
 
 {% block content %}
@@ -6,6 +8,7 @@
     <h2>All Profiles</h2>
 
     <div class="card-container">
+    <!-- table with profile information -->
     <table>
         <thead>
             <tr>
@@ -19,6 +22,7 @@
             </tr>
         </thead>
         <tbody>
+            <!-- for every profile passed in in the context (found in db) -->
             {% for profile in profiles %}
             <tr>
                         <td><a href="{% url 'show_profile' profile.pk %}" class="top-link">{{ profile.first_name}}</a></td>
